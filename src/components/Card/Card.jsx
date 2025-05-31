@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types'
-
-export default function Card({ theme, themeText, title, date }) {
+export default function Card({ topic, theme, title, date }) {
 	return (
 		<div className='cards__card card'>
 			<div className='card__group'>
 				<div className={`card__theme _${theme}`}>
-					<p className={`_${theme}`}>{themeText}</p>
+					<p className={`_${theme}`}>{topic}</p>
 				</div>
 				<a href='#popBrowse' target='_self'>
 					<div className='card__btn'>
@@ -53,11 +51,4 @@ export default function Card({ theme, themeText, title, date }) {
 			</div>
 		</div>
 	)
-}
-
-Card.propTypes = {
-	theme: PropTypes.string.isRequired,
-	themeText: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired,
-	date: PropTypes.string.isRequired,
 }

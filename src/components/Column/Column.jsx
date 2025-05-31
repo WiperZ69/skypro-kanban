@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-
 export default function Column({ title, children }) {
 	return (
 		<div className='main__column column'>
@@ -9,9 +7,4 @@ export default function Column({ title, children }) {
 			{children}
 		</div>
 	)
-}
-
-Column.propTypes = {
-	title: PropTypes.string.isRequired,
-	children: PropTypes.node.isRequired,
 }

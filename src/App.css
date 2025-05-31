@@ -87,6 +87,11 @@ body {
 	display: block;
 }
 
+._default {
+	background-color: #ffe4c2;
+	color: #3e3e3e;
+}
+
 ._orange {
 	background-color: #ffe4c2;
 	color: #ff6d00;
@@ -109,6 +114,50 @@ body {
 
 ._active-category {
 	opacity: 1 !important;
+}
+
+.card-loader {
+	background: #fff;
+	border-radius: 10px;
+	padding: 16px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	width: 220px;
+}
+
+.card-loader__content {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.card-loader__pretitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.loader:first-child {
+	border-radius: 18px;
+}
+
+.loader:nth-child(3) {
+	margin-top: 20px;
+}
+.loader {
+	border-radius: 2px;
+	animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 0.5;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.5;
+	}
 }
 
 .pop-wrap {
@@ -276,6 +325,21 @@ body {
 }
 .pop-user-set button a {
 	color: #565eef;
+}
+
+.pop-user-set__close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: none;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	color: #333;
+}
+
+.pop-user-set__close:hover {
+	color: #ff4d4f;
 }
 
 .pop-new-card {
@@ -785,7 +849,7 @@ body {
 	padding: 0;
 }
 .header__pop-user-set {
-	display: none;
+	display: block;
 	position: absolute;
 	top: 61px;
 	right: 0;
