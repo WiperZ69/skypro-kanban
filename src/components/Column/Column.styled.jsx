@@ -6,6 +6,11 @@ export const Mcolumn = styled.div`
 	margin: 0 auto;
 	display: block;
 	${Scolumn}
+	@media screen and (max-width: 1200px) {
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+	}
 `
 
 export const ScolumnTitle = styled.div`
