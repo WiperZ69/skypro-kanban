@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { Scontainer } from '../Main/Main.styled'
 import PopUser from '../popups/PopUser/PopUser'
+import { Hblock, Hnav, Sheader } from './Header.styled'
 
 export default function Header() {
 	const [isPopUserOpen, setIsPopUserOpen] = useState(false)
@@ -9,9 +11,9 @@ export default function Header() {
 	}
 
 	return (
-		<header className='header'>
-			<div className='container'>
-				<div className='header__block'>
+		<Sheader>
+			<Scontainer>
+				<Hblock>
 					<div className='header__logo _show _light'>
 						<a href='' target='_self'>
 							<img src='images/logo.png' alt='logo' />
@@ -22,7 +24,7 @@ export default function Header() {
 							<img src='images/logo_dark.png' alt='logo' />
 						</a>
 					</div>
-					<nav className='header__nav'>
+					<Hnav>
 						<button className='header__btn-main-new _hover01' id='btnMainNew'>
 							<a href='#popNewCard'>Создать новую задачу</a>
 						</button>
@@ -37,9 +39,9 @@ export default function Header() {
 							Ivan Ivanov
 						</a>
 						{isPopUserOpen && <PopUser />}
-					</nav>
-				</div>
-			</div>
-		</header>
+					</Hnav>
+				</Hblock>
+			</Scontainer>
+		</Sheader>
 	)
 }

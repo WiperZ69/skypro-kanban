@@ -1,15 +1,16 @@
 import columns from '../../data.js'
 import Cards from '../Card/Cards'
 import Column from '../Column/Column'
+import { Scontainer, Smain, SmainBlock, SmainContent } from './Main.styled.jsx'
 
 export default function Main({ loading }) {
 	const statuses = [...new Set(columns.map(task => task.status))]
 
 	return (
-		<main className='main'>
-			<div className='container'>
-				<div className='main__block'>
-					<div className='main__content'>
+		<Smain>
+			<Scontainer>
+				<SmainBlock>
+					<SmainContent>
 						{statuses.map((status, index) => (
 							<Column loading={loading} key={index} title={status}>
 								<Cards
@@ -24,9 +25,9 @@ export default function Main({ loading }) {
 								/>
 							</Column>
 						))}
-					</div>
-				</div>
-			</div>
-		</main>
+					</SmainContent>
+				</SmainBlock>
+			</Scontainer>
+		</Smain>
 	)
 }

@@ -1,5 +1,6 @@
 import CardLoader from '../Loaders/cardLoader'
 import Card from './Card'
+import { Scards } from './Cards.styled'
 
 export default function Cards({ cards, loading }) {
 	const topicMapping = {
@@ -8,7 +9,7 @@ export default function Cards({ cards, loading }) {
 		Copywriting: 'purple',
 	}
 	return (
-		<div className='cards'>
+		<Scards>
 			{loading
 				? cards.map((_, index) => (
 						<div key={index} className='cards__item'>
@@ -25,6 +26,6 @@ export default function Cards({ cards, loading }) {
 							/>
 						</div>
 				  ))}
-		</div>
+		</Scards>
 	)
 }
