@@ -1,10 +1,12 @@
+import { Mcolumn, ScolumnTitle } from './Column.styled'
+
 export default function Column({ title, children }) {
 	return (
-		<div className='main__column column'>
-			<div className='column__title'>
+		<Mcolumn>
+			<ScolumnTitle>
 				<p>{title}</p>
-			</div>
+			</ScolumnTitle>
 			{children}
-		</div>
+		</Mcolumn>
 	)
 }
