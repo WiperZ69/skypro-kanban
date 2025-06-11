@@ -52,8 +52,8 @@ export default function PopBrowse({ togglePopBrowse, card }) {
 
 	return (
 		<SPopBrowse id='popBrowse'>
-			<SPopBrowseContainer>
-				<SPopBrowseBlock>
+			<SPopBrowseContainer onClick={togglePopBrowse}>
+				<SPopBrowseBlock onClick={e => e.stopPropagation()}>
 					<SPopBrowseContent>
 						<SPopBrowseTopBlock>
 							<SPopBrowseTtl>{card?.title || 'Название задачи'}</SPopBrowseTtl>

@@ -1,5 +1,15 @@
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { Hover01, Hover03, SubTtl } from '../../../styles/GlobalStyles'
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`
+
+const scaleIn = keyframes`
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+`
 
 export const SPopBrowse = styled.div`
 	display: block;
@@ -23,6 +33,7 @@ export const SPopBrowseContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	background: rgba(0, 0, 0, 0.4);
+	animation: ${fadeIn} 0.3s ease-in;
 `
 
 export const SPopBrowseBlock = styled.div`
@@ -35,6 +46,7 @@ export const SPopBrowseBlock = styled.div`
 	border-radius: 10px;
 	border: 0.7px solid #d4dbe5;
 	position: relative;
+	animation: ${scaleIn} 0.3s ease-out;
 `
 
 export const SPopBrowseContent = styled.div`

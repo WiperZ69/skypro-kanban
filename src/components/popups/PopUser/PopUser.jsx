@@ -11,10 +11,6 @@ import {
 export default function PopUser({ togglePopUser, togglePopExit }) {
 	const portalContainer = document.getElementById('pop-user-portal')
 
-	if (!portalContainer) {
-		console.warn('Portal container #pop-user-portal not found')
-		return null
-	}
 	return createPortal(
 		<SPopUserSet id='user-set-target'>
 			<SPopUserSetName>Ivan Ivanov</SPopUserSetName>
