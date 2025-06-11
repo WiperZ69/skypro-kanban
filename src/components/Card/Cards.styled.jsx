@@ -10,3 +10,7 @@ export const Scards = styled.div`
 		overflow-y: auto;
 	}
 `
+
+export const ScardsItem = styled.div`
+	padding: 5px;
+`

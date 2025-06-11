@@ -1,11 +1,9 @@
 import styled from 'styled-components'
-import { Scolumn } from '../../styles/globalStyles'
 
 export const Mcolumn = styled.div`
 	width: 20%;
 	margin: 0 auto;
 	display: block;
-	${Scolumn}
 	@media screen and (max-width: 1200px) {
 		width: 100%;
 		margin: 0 auto;

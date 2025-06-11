@@ -1,19 +1,26 @@
-import { Cbtn, Ccard, Ccontent, Cdate, Cgroup, Ctitle } from './Card.styled'
+import {
+	Cbtn,
+	Ccard,
+	Ccontent,
+	Cdate,
+	Cgroup,
+	Ctheme,
+	CthemeText,
+	Ctitle,
+} from './Card.styled'
 
-export default function Card({ topic, theme, title, date }) {
+export default function Card({ topic, theme, title, date, togglePopBrowse }) {
 	return (
 		<Ccard>
 			<Cgroup>
-				<div className={`card__theme _${theme}`}>
-					<p className={`_${theme}`}>{topic}</p>
-				</div>
-				<a href='#popBrowse' target='_self'>
-					<Cbtn>
-						<div></div>
-						<div></div>
-						<div></div>
-					</Cbtn>
-				</a>
+				<Ctheme theme={theme}>
+					<CthemeText theme={theme}>{topic}</CthemeText>
+				</Ctheme>
+				<Cbtn onClick={togglePopBrowse}>
+					<div></div>
+					<div></div>
+					<div></div>
+				</Cbtn>
 			</Cgroup>
 			<Ccontent>
 				<a href='' target='_blank'>

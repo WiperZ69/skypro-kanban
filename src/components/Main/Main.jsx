@@ -3,7 +3,7 @@ import Cards from '../Card/Cards'
 import Column from '../Column/Column'
 import { Scontainer, Smain, SmainBlock, SmainContent } from './Main.styled.jsx'
 
-export default function Main({ loading }) {
+export default function Main({ loading, togglePopBrowse }) {
 	const statuses = [...new Set(columns.map(task => task.status))]
 
 	return (
@@ -22,6 +22,7 @@ export default function Main({ loading }) {
 											title: task.title,
 											date: task.date,
 										}))}
+									togglePopBrowse={togglePopBrowse}
 								/>
 							</Column>
 						))}

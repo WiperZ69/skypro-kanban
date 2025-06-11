@@ -1,15 +1,9 @@
-import { useState } from 'react'
+import { useRef } from 'react'
 import { Scontainer } from '../Main/Main.styled'
-import PopUser from '../popups/PopUser/PopUser'
-import { Hblock, Hnav, Sheader } from './Header.styled'
+import { Hblock, Hbtn, Hnav, Huser, Sheader } from './Header.styled'
 
-export default function Header() {
-	const [isPopUserOpen, setIsPopUserOpen] = useState(false)
-
-	const togglePopUser = () => {
-		setIsPopUserOpen(!isPopUserOpen)
-	}
-
+export default function Header({ togglePopNewCard, togglePopUser }) {
+	const userBtnRef = useRef(null)
 	return (
 		<Sheader>
 			<Scontainer>
@@ -25,20 +19,19 @@ export default function Header() {
 						</a>
 					</div>
 					<Hnav>
-						<button className='header__btn-main-new _hover01' id='btnMainNew'>
-							<a href='#popNewCard'>Создать новую задачу</a>
-						</button>
-						<a
-							href='#user-set-target'
-							className='header__user _hover02'
+						<Hbtn id='btnMainNew' onClick={togglePopNewCard}>
+							Создать новую задачу
+						</Hbtn>
+						<Huser
+							ref={userBtnRef}
 							onClick={e => {
 								e.preventDefault()
 								togglePopUser()
 							}}
 						>
 							Ivan Ivanov
-						</a>
-						{isPopUserOpen && <PopUser />}
+							<div id='pop-user-portal' />
+						</Huser>
 					</Hnav>
 				</Hblock>
 			</Scontainer>

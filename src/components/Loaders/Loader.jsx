@@ -8,7 +8,6 @@ const Loader = ({
 }) => {
 	return (
 		<Cloader
-			className='loader'
 			style={{
 				width: `${width}px`,
 				height: `${height}px`,

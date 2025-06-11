@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import { Scard } from '../../styles/globalStyles'
+import styled, { css } from 'styled-components'
 
 export const Ccard = styled.div`
 	width: 220px;
@@ -11,8 +10,8 @@ export const Ccard = styled.div`
 	align-items: flex-start;
 	justify-content: stretch;
 	padding: 15px 13px 19px;
-	${Scard}
 `
+
 export const Cgroup = styled.div`
 	width: 100%;
 	height: 20px;
@@ -21,19 +20,9 @@ export const Cgroup = styled.div`
 	align-items: center;
 	justify-content: space-between;
 `
-export const Ctheme = styled.div`
-	width: auto;
-	height: 20px;
-	padding: 5px 14px;
-	border-radius: 18px;
-	p {
-		font-size: 10px;
-		font-weight: 600;
-		line-height: 10px;
-	}
-`
 
 export const Cbtn = styled.div`
+	cursor: pointer;
 	width: 24px;
 	height: 24px;
 	display: flex;
@@ -55,6 +44,7 @@ export const Ccontent = styled.div`
 	align-items: flex-start;
 	justify-content: space-between;
 `
+
 export const Ctitle = styled.h3`
 	font-size: 14px;
 	font-weight: 500;
@@ -77,4 +67,43 @@ export const Cdate = styled.div`
 		color: #94a6be;
 		letter-spacing: 0.2px;
 	}
+`
+
+// Стили для тем
+const themeStyles = {
+	default: css`
+		background-color: #ffe4c2;
+		color: #3e3e3e;
+	`,
+	orange: css`
+		background-color: #ffe4c2;
+		color: #ff6d00;
+	`,
+	green: css`
+		background-color: #b4fdd1;
+		color: #06b16e;
+	`,
+	purple: css`
+		background-color: #e9d4ff;
+		color: #9a48f1;
+	`,
+	gray: css`
+		background-color: #94a6be;
+		color: #ffffff;
+	`,
+}
+
+export const Ctheme = styled.div`
+	width: auto;
+	height: 20px;
+	padding: 5px 14px;
+	border-radius: 18px;
+	${props => themeStyles[props.theme] || themeStyles.default}
+`
+
+export const CthemeText = styled.p`
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 10px;
+	${props => themeStyles[props.theme] || themeStyles.default}
 `

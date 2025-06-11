@@ -2,6 +2,7 @@ import {
 	ScardLoader,
 	ScardLoaderContent,
 	ScardLoaderPretitle,
+	ScardLoaderTitle,
 } from './CardLoader.styled'
 import Loader from './Loader'
 
@@ -13,8 +14,10 @@ const CardLoader = () => {
 					<Loader width={82} height={20} />
 					<Loader width={18} height={4} />
 				</ScardLoaderPretitle>
-				<Loader width={113} height={13} />
-				<Loader width={58} height={13} />
+				<ScardLoaderTitle>
+					<Loader width={113} height={13} />
+					<Loader width={58} height={13} />
+				</ScardLoaderTitle>
 			</ScardLoaderContent>
 		</ScardLoader>
 	)
