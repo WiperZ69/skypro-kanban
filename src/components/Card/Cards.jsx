@@ -1,30 +1,28 @@
+import { topicMapping } from '../../data'
 import CardLoader from '../Loaders/cardLoader'
 import Card from './Card'
+import { Scards, ScardsItem } from './Cards.styled'
 
-export default function Cards({ cards, loading }) {
-	const topicMapping = {
-		'Web Design': 'orange',
-		Research: 'green',
-		Copywriting: 'purple',
-	}
+export default function Cards({ cards, loading, togglePopBrowse }) {
 	return (
-		<div className='cards'>
+		<Scards>
 			{loading
 				? cards.map((_, index) => (
-						<div key={index} className='cards__item'>
+						<ScardsItem key={index}>
 							<CardLoader />
-						</div>
+						</ScardsItem>
 				  ))
 				: cards.map((card, index) => (
-						<div key={index} className='cards__item'>
+						<ScardsItem key={index}>
 							<Card
 								theme={topicMapping[card.topic] || 'default'}
 								topic={card.topic}
 								title={card.title}
 								date={card.date}
+								togglePopBrowse={togglePopBrowse}
 							/>
-						</div>
+						</ScardsItem>
 				  ))}
-		</div>
+		</Scards>
 	)
 }

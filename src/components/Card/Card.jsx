@@ -1,23 +1,32 @@
-export default function Card({ topic, theme, title, date }) {
+import {
+	Cbtn,
+	Ccard,
+	Ccontent,
+	Cdate,
+	Cgroup,
+	Ctheme,
+	CthemeText,
+	Ctitle,
+} from './Card.styled'
+
+export default function Card({ topic, theme, title, date, togglePopBrowse }) {
 	return (
-		<div className='cards__card card'>
-			<div className='card__group'>
-				<div className={`card__theme _${theme}`}>
-					<p className={`_${theme}`}>{topic}</p>
-				</div>
-				<a href='#popBrowse' target='_self'>
-					<div className='card__btn'>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				</a>
-			</div>
-			<div className='card__content'>
+		<Ccard>
+			<Cgroup>
+				<Ctheme theme={theme}>
+					<CthemeText theme={theme}>{topic}</CthemeText>
+				</Ctheme>
+				<Cbtn onClick={togglePopBrowse}>
+					<div></div>
+					<div></div>
+					<div></div>
+				</Cbtn>
+			</Cgroup>
+			<Ccontent>
 				<a href='' target='_blank'>
-					<h3 className='card__title'>{title}</h3>
+					<Ctitle>{title}</Ctitle>
 				</a>
-				<div className='card__date'>
+				<Cdate>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						width='13'
@@ -47,8 +56,8 @@ export default function Card({ topic, theme, title, date }) {
 						</defs>
 					</svg>
 					<p>{date}</p>
-				</div>
-			</div>
-		</div>
+				</Cdate>
+			</Ccontent>
+		</Ccard>
 	)
 }

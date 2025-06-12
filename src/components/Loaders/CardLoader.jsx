@@ -1,20 +1,25 @@
+import {
+	ScardLoader,
+	ScardLoaderContent,
+	ScardLoaderPretitle,
+	ScardLoaderTitle,
+} from './CardLoader.styled'
 import Loader from './Loader'
 
 const CardLoader = () => {
 	return (
-		<div className='card-loader'>
-			<div className='card-loader__content'>
-				{/* Имитация заголовка */}
-				<div className='card-loader__pretitle'>
+		<ScardLoader>
+			<ScardLoaderContent>
+				<ScardLoaderPretitle>
 					<Loader width={82} height={20} />
 					<Loader width={18} height={4} />
-				</div>
-				{/* Имитация текста */}
-				<Loader width={113} height={13} />
-				{/* Имитация даты */}
-				<Loader width={58} height={13} />
-			</div>
-		</div>
+				</ScardLoaderPretitle>
+				<ScardLoaderTitle>
+					<Loader width={113} height={13} />
+					<Loader width={58} height={13} />
+				</ScardLoaderTitle>
+			</ScardLoaderContent>
+		</ScardLoader>
 	)
 }
 

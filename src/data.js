@@ -1,3 +1,9 @@
+export const topicMapping = {
+	'Web Design': 'orange',
+	Research: 'green',
+	Copywriting: 'purple',
+}
+
 const columns = [
 	{
 		id: 1,

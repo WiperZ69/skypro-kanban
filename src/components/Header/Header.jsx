@@ -1,17 +1,13 @@
-import { useState } from 'react'
-import PopUser from '../popups/PopUser/PopUser'
+import { useRef } from 'react'
+import { Scontainer } from '../Main/Main.styled'
+import { Hblock, Hbtn, Hnav, Huser, Sheader } from './Header.styled'
 
-export default function Header() {
-	const [isPopUserOpen, setIsPopUserOpen] = useState(false)
-
-	const togglePopUser = () => {
-		setIsPopUserOpen(!isPopUserOpen)
-	}
-
+export default function Header({ togglePopNewCard, togglePopUser }) {
+	const userBtnRef = useRef(null)
 	return (
-		<header className='header'>
-			<div className='container'>
-				<div className='header__block'>
+		<Sheader>
+			<Scontainer>
+				<Hblock>
 					<div className='header__logo _show _light'>
 						<a href='' target='_self'>
 							<img src='images/logo.png' alt='logo' />
@@ -22,24 +18,23 @@ export default function Header() {
 							<img src='images/logo_dark.png' alt='logo' />
 						</a>
 					</div>
-					<nav className='header__nav'>
-						<button className='header__btn-main-new _hover01' id='btnMainNew'>
-							<a href='#popNewCard'>Создать новую задачу</a>
-						</button>
-						<a
-							href='#user-set-target'
-							className='header__user _hover02'
+					<Hnav>
+						<Hbtn id='btnMainNew' onClick={togglePopNewCard}>
+							Создать новую задачу
+						</Hbtn>
+						<Huser
+							ref={userBtnRef}
 							onClick={e => {
 								e.preventDefault()
 								togglePopUser()
 							}}
 						>
 							Ivan Ivanov
-						</a>
-						{isPopUserOpen && <PopUser />}
-					</nav>
-				</div>
-			</div>
-		</header>
+							<div id='pop-user-portal' />
+						</Huser>
+					</Hnav>
+				</Hblock>
+			</Scontainer>
+		</Sheader>
 	)
 }
