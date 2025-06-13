@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Calendar } from '../../Calendar/Calendar'
 import {
 	Categories,
@@ -21,28 +20,21 @@ import {
 	SPopNewCardWrap,
 } from './PopNewCard.styled'
 
-export default function PopNewCard({ togglePopNewCard }) {
-	const [activeCategory, setActiveCategory] = useState('orange')
-
-	const handleCategoryClick = color => {
-		setActiveCategory(color)
-	}
-
-	const handleSubmit = e => {
-		e.preventDefault()
-		// Логика отправки формы (например, API-запрос)
-		togglePopNewCard() // Закрываем попап после создания задачи
-	}
-
+export default function PopNewCard({
+	activeCategory,
+	onCategoryClick,
+	onSubmit,
+	onClose
+}) {
 	return (
 		<SPopNewCard id='popNewCard'>
-			<SPopNewCardContainer onClick={togglePopNewCard}>
+			<SPopNewCardContainer onClick={onClose}>
 				<SPopNewCardBlock onClick={e => e.stopPropagation()}>
+					<SPopNewCardClose onClick={onClose}>✖</SPopNewCardClose>
 					<SPopNewCardContent>
 						<SPopNewCardTtl>Создание задачи</SPopNewCardTtl>
-						<SPopNewCardClose onClick={togglePopNewCard}>✖</SPopNewCardClose>
 						<SPopNewCardWrap>
-							<SPopNewCardForm id='formNewCard' onSubmit={handleSubmit}>
+							<SPopNewCardForm id='formNewCard' onSubmit={onSubmit}>
 								<input type='hidden' name='category' value={activeCategory} />
 								<FormNewBlock>
 									<FormNewLabel htmlFor='formTitle'>
@@ -74,28 +66,28 @@ export default function PopNewCard({ togglePopNewCard }) {
 							<CategoriesThemes>
 								<CategoryTheme
 									color='orange'
-									isActive={activeCategory === 'orange'}
-									onClick={() => handleCategoryClick('orange')}
+									$isActive={activeCategory === 'orange'}
+									onClick={() => onCategoryClick('orange')}
 								>
 									<CategoryText>Web Design</CategoryText>
 								</CategoryTheme>
 								<CategoryTheme
 									color='green'
-									isActive={activeCategory === 'green'}
-									onClick={() => handleCategoryClick('green')}
+									$isActive={activeCategory === 'green'}
+									onClick={() => onCategoryClick('green')}
 								>
 									<CategoryText>Research</CategoryText>
 								</CategoryTheme>
 								<CategoryTheme
 									color='purple'
-									isActive={activeCategory === 'purple'}
-									onClick={() => handleCategoryClick('purple')}
+									$isActive={activeCategory === 'purple'}
+									onClick={() => onCategoryClick('purple')}
 								>
 									<CategoryText>Copywriting</CategoryText>
 								</CategoryTheme>
 							</CategoriesThemes>
 						</Categories>
-						<FormNewCreate id='btnCreate' onClick={handleSubmit}>
+						<FormNewCreate id='btnCreate' onClick={onSubmit}>
 							Создать задачу
 						</FormNewCreate>
 					</SPopNewCardContent>

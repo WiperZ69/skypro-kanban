@@ -9,14 +9,14 @@ import {
 	Ctitle,
 } from './Card.styled'
 
-export default function Card({ topic, theme, title, date, togglePopBrowse }) {
+export default function Card({ topic, theme, title, date }) {
 	return (
 		<Ccard>
 			<Cgroup>
 				<Ctheme theme={theme}>
 					<CthemeText theme={theme}>{topic}</CthemeText>
 				</Ctheme>
-				<Cbtn onClick={togglePopBrowse}>
+				<Cbtn to='/card/:id'>
 					<div></div>
 					<div></div>
 					<div></div>

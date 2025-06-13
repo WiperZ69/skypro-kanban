@@ -35,51 +35,50 @@ import {
 	ThemeDownCategories,
 } from './PopBrowse.styled'
 
-export default function PopBrowse({ togglePopBrowse, card }) {
+export default function PopBrowse({ card, onClose }) {
 	const [isEditing, setIsEditing] = useState(false)
 	const theme = card?.topic ? topicMapping[card.topic] : 'orange'
 
 	const handleEdit = () => setIsEditing(true)
 	const handleCancel = () => setIsEditing(false)
 	const handleSave = () => {
-		// TODO: Логика сохранения
 		setIsEditing(false)
 	}
 	const handleDelete = () => {
-		// TODO: Логика удаления
-		togglePopBrowse()
+		// Тут возможно удаление с сервера
+		onClose()
 	}
 
 	return (
 		<SPopBrowse id='popBrowse'>
-			<SPopBrowseContainer onClick={togglePopBrowse}>
+			<SPopBrowseContainer onClick={onClose}>
 				<SPopBrowseBlock onClick={e => e.stopPropagation()}>
 					<SPopBrowseContent>
 						<SPopBrowseTopBlock>
 							<SPopBrowseTtl>{card?.title || 'Название задачи'}</SPopBrowseTtl>
-							<CategoriesTheme theme={theme} isActive>
+							<CategoriesTheme theme={theme} $isActive>
 								<CategoriesThemeText theme={theme}>
 									{card?.topic || 'Web Design'}
 								</CategoriesThemeText>
 							</CategoriesTheme>
-							<SPopBrowseClose onClick={togglePopBrowse}>✖</SPopBrowseClose>
+							<SPopBrowseClose onClick={onClose}>✖</SPopBrowseClose>
 						</SPopBrowseTopBlock>
 						<StatusBlock>
 							<StatusTitle>Статус</StatusTitle>
 							<StatusThemes>
-								<StatusTheme isHidden>
+								<StatusTheme $isHidden>
 									<StatusThemeText>Без статуса</StatusThemeText>
 								</StatusTheme>
 								<StatusTheme theme='gray'>
 									<StatusThemeText theme='gray'>Нужно сделать</StatusThemeText>
 								</StatusTheme>
-								<StatusTheme isHidden>
+								<StatusTheme $isHidden>
 									<StatusThemeText>В работе</StatusThemeText>
 								</StatusTheme>
-								<StatusTheme isHidden>
+								<StatusTheme $isHidden>
 									<StatusThemeText>Тестирование</StatusThemeText>
 								</StatusTheme>
-								<StatusTheme isHidden>
+								<StatusTheme $isHidden>
 									<StatusThemeText>Готово</StatusThemeText>
 								</StatusTheme>
 							</StatusThemes>
@@ -102,13 +101,13 @@ export default function PopBrowse({ togglePopBrowse, card }) {
 						</SPopBrowseWrap>
 						<ThemeDownCategories>
 							<CategoriesTitle>Категория</CategoriesTitle>
-							<CategoriesTheme theme='orange' isActive>
+							<CategoriesTheme theme='orange' $isActive>
 								<CategoriesThemeText theme='orange'>
 									Web Design
 								</CategoriesThemeText>
 							</CategoriesTheme>
 						</ThemeDownCategories>
-						<BtnBrowseBlock isHidden={isEditing}>
+						<BtnBrowseBlock $isHidden={isEditing}>
 							<BtnGroup>
 								<BtnBrowseEdit onClick={handleEdit}>
 									Редактировать задачу
@@ -117,9 +116,9 @@ export default function PopBrowse({ togglePopBrowse, card }) {
 									Удалить задачу
 								</BtnBrowseDelete>
 							</BtnGroup>
-							<BtnBrowseClose onClick={togglePopBrowse}>Закрыть</BtnBrowseClose>
+							<BtnBrowseClose onClick={onClose}>Закрыть</BtnBrowseClose>
 						</BtnBrowseBlock>
-						<BtnEditBlock isHidden={!isEditing}>
+						<BtnEditBlock $isHidden={!isEditing}>
 							<BtnGroup>
 								<BtnEditSave onClick={handleSave}>Сохранить</BtnEditSave>
 								<BtnEditCancel onClick={handleCancel}>Отменить</BtnEditCancel>
@@ -127,7 +126,7 @@ export default function PopBrowse({ togglePopBrowse, card }) {
 									Удалить задачу
 								</BtnEditDelete>
 							</BtnGroup>
-							<BtnEditClose onClick={togglePopBrowse}>Закрыть</BtnEditClose>
+							<BtnEditClose onClick={onClose}>Закрыть</BtnEditClose>
 						</BtnEditBlock>
 					</SPopBrowseContent>
 				</SPopBrowseBlock>
