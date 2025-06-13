@@ -66,21 +66,21 @@ export default function PopNewCard({
 							<CategoriesThemes>
 								<CategoryTheme
 									color='orange'
-									isActive={activeCategory === 'orange'}
+									$isActive={activeCategory === 'orange'}
 									onClick={() => onCategoryClick('orange')}
 								>
 									<CategoryText>Web Design</CategoryText>
 								</CategoryTheme>
 								<CategoryTheme
 									color='green'
-									isActive={activeCategory === 'green'}
+									$isActive={activeCategory === 'green'}
 									onClick={() => onCategoryClick('green')}
 								>
 									<CategoryText>Research</CategoryText>
 								</CategoryTheme>
 								<CategoryTheme
 									color='purple'
-									isActive={activeCategory === 'purple'}
+									$isActive={activeCategory === 'purple'}
 									onClick={() => onCategoryClick('purple')}
 								>
 									<CategoryText>Copywriting</CategoryText>

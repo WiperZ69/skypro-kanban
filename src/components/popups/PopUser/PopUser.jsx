@@ -6,7 +6,7 @@ import {
 	SPopUserSetTheme,
 } from './PopUser.styled'
 
-export default function PopUser({ setIsAuth }) {
+export default function PopUser() {
 
 
 	return (
@@ -15,9 +15,9 @@ export default function PopUser({ setIsAuth }) {
 			<SPopUserSetMail>ivan.ivanov@gmail.com</SPopUserSetMail>
 			<SPopUserSetTheme>
 				<p>Темная тема</p>
-				<input type='checkbox' className='checkbox' name='checkbox' />
+				<input type='checkbox' name='checkbox' />
 			</SPopUserSetTheme>
-			<SPopUserSetBtn to='/logout' setIsAuth={setIsAuth}>Выйти</SPopUserSetBtn>
+			<SPopUserSetBtn to='/logout'>Выйти</SPopUserSetBtn>
 		</SPopUserSet>
 	)
 }
