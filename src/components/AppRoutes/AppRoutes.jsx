@@ -7,6 +7,7 @@ import NotFoundPage from '../../pages/NotFoundPage'
 import PrivateRoute from '../../pages/PrivateRoute'
 import SignInPage from '../../pages/SignInPage'
 import SignUpPage from '../../pages/SignUpPage'
+import LogOutPage from '../../pages/LogOutPage'
 
 function AppRoutes() {
 	const [loading, setLoading] = useState(true)
@@ -24,9 +25,11 @@ function AppRoutes() {
 				<Route
 					path='/'
 					element={<MainPage setIsAuth={setIsAuth} loading={loading} />}
-				/>
+				>
 				<Route path='/card/add' element={<NewCardPage />} />
 				<Route path='/card/:id' element={<BrowseCardPage />} />
+				<Route path='/logout' element={<LogOutPage setIsAuth={setIsAuth} />} />
+				</Route>
 			</Route>
 			<Route path='/sign-in' element={<SignInPage setIsAuth={setIsAuth} />} />
 			<Route path='/sign-up' element={<SignUpPage />} />

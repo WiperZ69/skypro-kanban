@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
+import PopBrowse from '../components/popups/PopBrowse/PopBrowse'
 
 const BrowseCardPage = () => {
 	const { id } = useParams()

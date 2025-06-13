@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 export const Ccard = styled.div`
@@ -21,7 +22,7 @@ export const Cgroup = styled.div`
 	justify-content: space-between;
 `
 
-export const Cbtn = styled.div`
+export const Cbtn = styled(Link)`
 	cursor: pointer;
 	width: 24px;
 	height: 24px;

@@ -9,6 +9,8 @@ import {
 	FormGroup,
 	FormInput,
 	FormInputWrapper,
+	FormLink,
+	FormText,
 } from './AuthForm.styled'
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
@@ -55,21 +57,19 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
 						<FormButton
 							onClick={handleLogin}
 							$type='secondary'
-							className='button-enter'
-							$text={isSignUp ? 'Зарегистрироваться' : 'Войти'}
-						/>
+							>{isSignUp ? 'Зарегистрироваться' : 'Войти'}</FormButton>
 
 						{!isSignUp && (
 							<FormGroup>
-								<p>Нужно зарегистрироваться?</p>
-								<Link to='/sign-up'>Регистрируйтесь здесь</Link>
+								<FormText>Нужно зарегистрироваться?</FormText>
+								<FormLink to='/sign-up'>Регистрируйтесь здесь</FormLink>
 							</FormGroup>
 						)}
 						{isSignUp && (
 							<FormGroup>
-								<p>
-									Есть аккаунт? <Link to='/sign-in'>Войдите здесь</Link>
-								</p>
+								<FormText>
+									Есть аккаунт? <FormLink to='/sign-in'>Войдите здесь</FormLink>
+								</FormText>
 							</FormGroup>
 						)}
 					</AuthFormForm>

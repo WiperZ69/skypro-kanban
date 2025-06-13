@@ -24,11 +24,13 @@ export default function PopNewCard({
 	activeCategory,
 	onCategoryClick,
 	onSubmit,
+	onClose
 }) {
 	return (
 		<SPopNewCard id='popNewCard'>
-			<SPopNewCardContainer>
-				<SPopNewCardBlock>
+			<SPopNewCardContainer onClick={onClose}>
+				<SPopNewCardBlock onClick={e => e.stopPropagation()}>
+					<SPopNewCardClose onClick={onClose}>✖</SPopNewCardClose>
 					<SPopNewCardContent>
 						<SPopNewCardTtl>Создание задачи</SPopNewCardTtl>
 						<SPopNewCardWrap>
