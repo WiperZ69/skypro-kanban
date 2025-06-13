@@ -35,24 +35,23 @@ import {
 	ThemeDownCategories,
 } from './PopBrowse.styled'
 
-export default function PopBrowse({ togglePopBrowse, card }) {
+export default function PopBrowse({ card, onClose }) {
 	const [isEditing, setIsEditing] = useState(false)
 	const theme = card?.topic ? topicMapping[card.topic] : 'orange'
 
 	const handleEdit = () => setIsEditing(true)
 	const handleCancel = () => setIsEditing(false)
 	const handleSave = () => {
-		// TODO: Логика сохранения
 		setIsEditing(false)
 	}
 	const handleDelete = () => {
-		// TODO: Логика удаления
-		togglePopBrowse()
+		// Тут возможно удаление с сервера
+		onClose()
 	}
 
 	return (
 		<SPopBrowse id='popBrowse'>
-			<SPopBrowseContainer onClick={togglePopBrowse}>
+			<SPopBrowseContainer onClick={onClose}>
 				<SPopBrowseBlock onClick={e => e.stopPropagation()}>
 					<SPopBrowseContent>
 						<SPopBrowseTopBlock>
@@ -62,7 +61,7 @@ export default function PopBrowse({ togglePopBrowse, card }) {
 									{card?.topic || 'Web Design'}
 								</CategoriesThemeText>
 							</CategoriesTheme>
-							<SPopBrowseClose onClick={togglePopBrowse}>✖</SPopBrowseClose>
+							<SPopBrowseClose onClick={onClose}>✖</SPopBrowseClose>
 						</SPopBrowseTopBlock>
 						<StatusBlock>
 							<StatusTitle>Статус</StatusTitle>
@@ -117,7 +116,7 @@ export default function PopBrowse({ togglePopBrowse, card }) {
 									Удалить задачу
 								</BtnBrowseDelete>
 							</BtnGroup>
-							<BtnBrowseClose onClick={togglePopBrowse}>Закрыть</BtnBrowseClose>
+							<BtnBrowseClose onClick={onClose}>Закрыть</BtnBrowseClose>
 						</BtnBrowseBlock>
 						<BtnEditBlock isHidden={!isEditing}>
 							<BtnGroup>
@@ -127,7 +126,7 @@ export default function PopBrowse({ togglePopBrowse, card }) {
 									Удалить задачу
 								</BtnEditDelete>
 							</BtnGroup>
-							<BtnEditClose onClick={togglePopBrowse}>Закрыть</BtnEditClose>
+							<BtnEditClose onClick={onClose}>Закрыть</BtnEditClose>
 						</BtnEditBlock>
 					</SPopBrowseContent>
 				</SPopBrowseBlock>
