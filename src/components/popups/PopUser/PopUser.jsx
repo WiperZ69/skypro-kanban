@@ -7,8 +7,6 @@ import {
 } from './PopUser.styled'
 
 export default function PopUser() {
-
-
 	return (
 		<SPopUserSet id='user-set-target'>
 			<SPopUserSetName>Ivan Ivanov</SPopUserSetName>
