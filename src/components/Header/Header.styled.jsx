@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Hover01, Hover02 } from '../../styles/GlobalStyles'
 
@@ -18,6 +19,7 @@ export const Hblock = styled.div`
 `
 export const Hnav = styled.nav`
 	max-width: 290px;
+	position: relative;
 	padding: 0;
 	display: flex;
 	align-items: center;
@@ -26,11 +28,11 @@ export const Hnav = styled.nav`
 
 export const Huser = styled.a`
 	height: 20px;
-	position: relative;
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: center;
+	user-select: none;
 	font-size: 14px;
 	line-height: 20px;
 	color: #565eef;
@@ -49,19 +51,16 @@ export const Huser = styled.a`
 	}
 `
 
-export const Hbtn = styled.button`
-	width: 178px;
-	height: 30px;
+export const Hbtn = styled(Link)`
+	max-width: 178px;
+	text-align: center;
+	padding: 10px 14px;
 	border-radius: 4px;
 	background-color: #565eef;
 	color: #ffffff;
 	border: none;
 	font-size: 14px;
-	line-height: 1;
 	font-weight: 500;
 	margin-right: 20px;
 	${Hover01}
-	a {
-		color: #ffffff;
-	}
 `

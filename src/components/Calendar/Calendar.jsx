@@ -30,15 +30,12 @@ import {
 } from './Calendar.styled'
 
 // Фильтрация пропсов для CalendarCell
-const StyledCalendarCell = styled.div.withConfig({
-	shouldForwardProp: prop =>
-		['children', 'onClick', 'className', 'style'].includes(prop),
-})`
-	${props => props.isActive && 'background: #f0f0f0;'}
-	${props => props.isWeekend && 'color: red;'}
-  ${props => props.isOtherMonth && 'color: gray;'}
-  ${props => props.isCurrent && 'border: 1px solid blue;'}
-  ${props => props.isCellDay && 'cursor: pointer;'}
+const StyledCalendarCell = styled.div`
+	${props => props.$isActive && 'background: #f0f0f0;'}
+	${props => props.$isWeekend && 'color: red;'}
+  ${props => props.$isOtherMonth && 'color: gray;'}
+  ${props => props.$isCurrent && 'border: 1px solid blue;'}
+  ${props => props.$isCellDay && 'cursor: pointer;'}
 `
 
 export const Calendar = () => {
@@ -163,11 +160,11 @@ export const Calendar = () => {
 						{allDays.map((day, index) => (
 							<StyledCalendarCell
 								key={index}
-								isCellDay={day.isCellDay}
-								isWeekend={day.isWeekend}
-								isOtherMonth={day.isOtherMonth}
-								isCurrent={day.isCurrent}
-								isActive={
+								$isCellDay={day.isCellDay}
+								$isWeekend={day.isWeekend}
+								$isOtherMonth={day.isOtherMonth}
+								$isCurrent={day.isCurrent}
+								$isActive={
 									selectedDay && day.date.getTime() === selectedDay.getTime()
 								}
 								onClick={() => handleDayClick(day.date)}
