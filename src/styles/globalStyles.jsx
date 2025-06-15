@@ -51,7 +51,6 @@ export const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
-
   ul li {
     list-style: none;
   }
