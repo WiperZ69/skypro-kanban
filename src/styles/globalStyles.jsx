@@ -51,11 +51,6 @@ export const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
-  button,
-  ._btn {
-    cursor: pointer;
-    outline: none;
-  }
 
   ul li {
     list-style: none;
@@ -66,15 +61,5 @@ export const GlobalStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    color: ${props => props.theme.textColor || '#000000'};
-  }
-
-  .header__user:hover {
-    color: #33399b;
-  }
-
-  .header__user:hover::after {
-    border-left-color: #33399b;
-    border-bottom-color: #33399b;
   }
 `

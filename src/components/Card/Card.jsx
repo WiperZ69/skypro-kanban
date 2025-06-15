@@ -16,7 +16,7 @@ export default function Card({ topic, theme, title, date }) {
 				<Ctheme theme={theme}>
 					<CthemeText theme={theme}>{topic}</CthemeText>
 				</Ctheme>
-				<Cbtn>
+				<Cbtn to='/card/:id'>
 					<div></div>
 					<div></div>
 					<div></div>

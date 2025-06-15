@@ -3,7 +3,7 @@ import { Scontainer } from '../Main/Main.styled'
 import PopUser from '../popups/PopUser/PopUser'
 import { Hblock, Hbtn, Hnav, Huser, Sheader } from './Header.styled'
 
-export default function Header({ togglePopUser, setIsAuth }) {
+export default function Header({ togglePopUser }) {
 	const userBtnRef = useRef(null)
 	const [isPopUserOpen, setIsPopUserOpen] = useState(false)
 	return (
@@ -38,7 +38,6 @@ export default function Header({ togglePopUser, setIsAuth }) {
 							<PopUser
 								togglePopUser={togglePopUser}
 								togglePopExit={() => setIsPopUserOpen(false)}
-								setIsAuth={setIsAuth}
 							/>
 						)}
 					</Hnav>

@@ -56,7 +56,7 @@ export default function PopBrowse({ card, onClose }) {
 					<SPopBrowseContent>
 						<SPopBrowseTopBlock>
 							<SPopBrowseTtl>{card?.title || 'Название задачи'}</SPopBrowseTtl>
-							<CategoriesTheme theme={theme} isActive>
+							<CategoriesTheme theme={theme} $isActive>
 								<CategoriesThemeText theme={theme}>
 									{card?.topic || 'Web Design'}
 								</CategoriesThemeText>
@@ -66,19 +66,19 @@ export default function PopBrowse({ card, onClose }) {
 						<StatusBlock>
 							<StatusTitle>Статус</StatusTitle>
 							<StatusThemes>
-								<StatusTheme isHidden>
+								<StatusTheme $isHidden>
 									<StatusThemeText>Без статуса</StatusThemeText>
 								</StatusTheme>
 								<StatusTheme theme='gray'>
 									<StatusThemeText theme='gray'>Нужно сделать</StatusThemeText>
 								</StatusTheme>
-								<StatusTheme isHidden>
+								<StatusTheme $isHidden>
 									<StatusThemeText>В работе</StatusThemeText>
 								</StatusTheme>
-								<StatusTheme isHidden>
+								<StatusTheme $isHidden>
 									<StatusThemeText>Тестирование</StatusThemeText>
 								</StatusTheme>
-								<StatusTheme isHidden>
+								<StatusTheme $isHidden>
 									<StatusThemeText>Готово</StatusThemeText>
 								</StatusTheme>
 							</StatusThemes>
@@ -101,13 +101,13 @@ export default function PopBrowse({ card, onClose }) {
 						</SPopBrowseWrap>
 						<ThemeDownCategories>
 							<CategoriesTitle>Категория</CategoriesTitle>
-							<CategoriesTheme theme='orange' isActive>
+							<CategoriesTheme theme='orange' $isActive>
 								<CategoriesThemeText theme='orange'>
 									Web Design
 								</CategoriesThemeText>
 							</CategoriesTheme>
 						</ThemeDownCategories>
-						<BtnBrowseBlock isHidden={isEditing}>
+						<BtnBrowseBlock $isHidden={isEditing}>
 							<BtnGroup>
 								<BtnBrowseEdit onClick={handleEdit}>
 									Редактировать задачу
@@ -118,7 +118,7 @@ export default function PopBrowse({ card, onClose }) {
 							</BtnGroup>
 							<BtnBrowseClose onClick={onClose}>Закрыть</BtnBrowseClose>
 						</BtnBrowseBlock>
-						<BtnEditBlock isHidden={!isEditing}>
+						<BtnEditBlock $isHidden={!isEditing}>
 							<BtnGroup>
 								<BtnEditSave onClick={handleSave}>Сохранить</BtnEditSave>
 								<BtnEditCancel onClick={handleCancel}>Отменить</BtnEditCancel>

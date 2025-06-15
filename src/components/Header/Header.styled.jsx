@@ -52,18 +52,16 @@ export const Huser = styled.a`
 `
 
 export const Hbtn = styled(Link)`
-	width: 178px;
-	height: 30px;
+	max-width: 178px;
+	text-align: center;
+	padding: 10px 14px;
 	border-radius: 4px;
 	background-color: #565eef;
 	color: #ffffff;
 	border: none;
 	font-size: 14px;
-	line-height: 1;
 	font-weight: 500;
 	margin-right: 20px;
+	transition: all 0.3s;
 	${Hover01}
-	a {
-		color: #ffffff;
-	}
 `
