@@ -1,7 +1,7 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Hover03 } from '../../../styles/GlobalStyles'
 import { PopTarget } from '../Popups.styled'
-import { Link } from 'react-router-dom'
 
 export const SPopUserSet = styled.div`
 	display: block;
@@ -83,6 +83,7 @@ export const SPopUserSetBtn = styled(Link)`
 	color: #565eef;
 	border-radius: 4px;
 	border: 1px solid #565eef;
+	transition: all 0.3s;
 	${Hover03}
 	a {
 		color: #565eef;

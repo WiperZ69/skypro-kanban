@@ -62,5 +62,6 @@ export const Hbtn = styled(Link)`
 	font-size: 14px;
 	font-weight: 500;
 	margin-right: 20px;
+	transition: all 0.3s;
 	${Hover01}
 `

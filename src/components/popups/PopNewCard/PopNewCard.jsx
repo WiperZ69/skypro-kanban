@@ -24,7 +24,7 @@ export default function PopNewCard({
 	activeCategory,
 	onCategoryClick,
 	onSubmit,
-	onClose
+	onClose,
 }) {
 	return (
 		<SPopNewCard id='popNewCard'>

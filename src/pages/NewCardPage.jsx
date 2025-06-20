@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import PopNewCard from '../components/popups/PopNewCard/PopNewCard'
 import { useNavigate } from 'react-router-dom'
+import PopNewCard from '../components/popups/PopNewCard/PopNewCard'
 
 const NewCardPage = () => {
 	const [activeCategory, setActiveCategory] = useState('orange')

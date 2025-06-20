@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
 	AuthFormContainer,
 	AuthFormForm,
@@ -54,10 +54,9 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
 							/>
 						</FormInputWrapper>
 
-						<FormButton
-							onClick={handleLogin}
-							$type='secondary'
-							>{isSignUp ? 'Зарегистрироваться' : 'Войти'}</FormButton>
+						<FormButton onClick={handleLogin} $type='secondary'>
+							{isSignUp ? 'Зарегистрироваться' : 'Войти'}
+						</FormButton>
 
 						{!isSignUp && (
 							<FormGroup>

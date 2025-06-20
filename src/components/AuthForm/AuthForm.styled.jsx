@@ -12,8 +12,10 @@ export const AuthFormContainer = styled.div`
 `
 
 export const AuthFormModal = styled.div`
-	width: 368px;
-	height: 329px;
+	max-width: 368px;
+	max-height: 329px;
+	width: 100%;
+	height: 100%;
 	border: 0.7px solid #d4dbe5;
 	border-radius: 10px;
 	padding: 50px 60px;
@@ -25,6 +27,7 @@ export const AuthFormWrapper = styled.div`
 	display: flex;
 	width: 100%;
 	flex-direction: column;
+	gap: 20px;
 `
 
 export const AuthFormTitle = styled.h2`
@@ -58,18 +61,23 @@ export const FormInput = styled.input`
 	width: 100%;
 	height: 30px;
 	max-width: 250px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 150%;
+	letter-spacing: -0.02em;
+	color: #94a6be;
 `
 
 export const FormButton = styled.button`
 	width: 100%;
+	height: 100%;
 	max-width: 272px;
+	max-height: 30px;
 	border-radius: 4px;
 	padding: 8px 10px;
 	background: #565eef;
 	font-weight: 500;
 	font-size: 14px;
-	line-height: 150%;
-	letter-spacing: -0.01em;
 	text-align: center;
 	color: #fff;
 	cursor: pointer;
