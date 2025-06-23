@@ -65,7 +65,10 @@ export const FormInput = styled.input`
 	font-size: 14px;
 	line-height: 150%;
 	letter-spacing: -0.02em;
-	color: #94a6be;
+	color: #000;
+	::placeholder {
+		color: #94a6be;
+	}
 `
 
 export const FormButton = styled.button`

@@ -6,6 +6,7 @@ import { Hblock, Hbtn, Hnav, Huser, Sheader } from './Header.styled'
 export default function Header({ togglePopUser }) {
 	const userBtnRef = useRef(null)
 	const [isPopUserOpen, setIsPopUserOpen] = useState(false)
+
 	return (
 		<Sheader>
 			<Scontainer>

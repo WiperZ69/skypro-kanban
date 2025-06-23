@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Mcolumn = styled.div`
+export const Scolumn = styled.div`
 	width: 20%;
 	margin: 0 auto;
 	display: block;

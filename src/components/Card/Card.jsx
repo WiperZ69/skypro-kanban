@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
 	Cbtn,
 	Ccard,
@@ -9,24 +10,25 @@ import {
 	Ctitle,
 } from './Card.styled'
 
-export default function Card({ topic, theme, title, date }) {
+export default function Card({ id, topic, theme, title, date }) {
 	return (
 		<Ccard>
 			<Cgroup>
 				<Ctheme theme={theme}>
 					<CthemeText theme={theme}>{topic}</CthemeText>
 				</Ctheme>
-				<Cbtn to='/card/:id'>
-					<div></div>
-					<div></div>
-					<div></div>
+				<Cbtn to={`/card/${id}`}>
+					<div />
+					<div />
+					<div />
 				</Cbtn>
 			</Cgroup>
 			<Ccontent>
-				<a href='' target='_blank'>
+				<Link to={`/card/${id}`}>
 					<Ctitle>{title}</Ctitle>
-				</a>
+				</Link>
 				<Cdate>
+					{/* svg оставлен как есть */}
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						width='13'
