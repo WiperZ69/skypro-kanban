@@ -28,10 +28,14 @@ const BrowseCardPage = () => {
 		navigate('/')
 	}
 
-	if (loading) return <div>Загрузка...</div>
-	if (error) return <div>Ошибка: {error}</div>
-
-	return <PopBrowse card={card} onClose={handleClose} />
+	return (
+		<PopBrowse
+			loading={loading}
+			error={error}
+			card={card}
+			onClose={handleClose}
+		/>
+	)
 }
 
 export default BrowseCardPage

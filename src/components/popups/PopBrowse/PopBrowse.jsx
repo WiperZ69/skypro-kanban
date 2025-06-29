@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { topicMapping } from '../../../data'
 import { deleteCard, editCard } from '../../../services/api'
 import { Calendar } from '../../Calendar/Calendar'
@@ -12,10 +12,15 @@ const STATUSES = [
 	'Готово',
 ]
 
-export default function PopBrowse({ card, onClose }) {
+export default function PopBrowse({ loading, error, card, onClose }) {
 	const [isEditing, setIsEditing] = useState(false)
-	const [editedCard, setEditedCard] = useState(card)
+	const [editedCard, setEditedCard] = useState(null)
 
+	useEffect(() => {
+		if (card) {
+			setEditedCard(card)
+		}
+	}, [card])
 	const handleEdit = () => setIsEditing(true)
 
 	const handleCancel = () => {
@@ -50,6 +55,34 @@ export default function PopBrowse({ card, onClose }) {
 		setEditedCard(prev => ({ ...prev, status }))
 	}
 
+	if (loading || !editedCard) {
+		return (
+			<S.PopBrowse>
+				<S.PopBrowseContainer onClick={onClose}>
+					<S.PopBrowseBlock onClick={e => e.stopPropagation()}>
+						<S.PopBrowseContent>
+							<S.LoadingMessage>Загрузка карточки...</S.LoadingMessage>
+						</S.PopBrowseContent>
+					</S.PopBrowseBlock>
+				</S.PopBrowseContainer>
+			</S.PopBrowse>
+		)
+	}
+
+	if (error) {
+		return (
+			<S.PopBrowse>
+				<S.PopBrowseContainer onClick={onClose}>
+					<S.PopBrowseBlock onClick={e => e.stopPropagation()}>
+						<S.PopBrowseContent>
+							<S.ErrorMessage>Ошибка: {error}</S.ErrorMessage>
+						</S.PopBrowseContent>
+					</S.PopBrowseBlock>
+				</S.PopBrowseContainer>
+			</S.PopBrowse>
+		)
+	}
+
 	return (
 		<S.PopBrowse>
 			<S.PopBrowseContainer onClick={onClose}>
@@ -57,7 +90,7 @@ export default function PopBrowse({ card, onClose }) {
 					<S.PopBrowseContent>
 						<S.PopBrowseTopBlock>
 							<S.PopBrowseTtl>
-								{editedCard.title || 'Название задачи'}
+								{editedCard?.title || 'Название задачи'}
 							</S.PopBrowseTtl>
 							<S.Theme
 								theme={topicMapping[editedCard?.topic] || 'orange'}
@@ -70,16 +103,22 @@ export default function PopBrowse({ card, onClose }) {
 						<S.StatusBlock>
 							<S.StatusTitle>Статус</S.StatusTitle>
 							<S.StatusThemes>
-								{STATUSES.map(status => (
-									<S.Theme
-										key={status}
-										theme={status === editedCard.status ? 'gray' : 'default'}
-										$isActive={status === editedCard.status}
-										onClick={() => isEditing && handleStatusChange(status)}
-									>
-										{status}
+								{isEditing ? (
+									STATUSES.map(status => (
+										<S.Theme
+											key={status}
+											theme={status === editedCard.status ? 'gray' : 'default'}
+											$isActive={status === editedCard.status}
+											onClick={() => handleStatusChange(status)}
+										>
+											{status}
+										</S.Theme>
+									))
+								) : (
+									<S.Theme theme='gray' $isActive>
+										{editedCard.status}
 									</S.Theme>
-								))}
+								)}
 							</S.StatusThemes>
 						</S.StatusBlock>
 

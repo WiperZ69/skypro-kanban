@@ -194,3 +194,19 @@ export const Button = styled.button`
 		color: ${({ $variant }) => ($variant === 'primary' ? '#fff' : '#fff')};
 	}
 `
+
+export const LoadingMessage = styled.div`
+	padding: 40px;
+	text-align: center;
+	font-size: 16px;
+	color: #999;
+	font-style: italic;
+`
+
+export const ErrorMessage = styled.div`
+	padding: 40px;
+	text-align: center;
+	font-size: 16px;
+	color: red;
+	font-weight: bold;
+`

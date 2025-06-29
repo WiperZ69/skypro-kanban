@@ -1,24 +1,38 @@
 import { topicMapping } from '../../data'
 import CardLoader from '../Loaders/cardLoader'
 import Card from './Card'
-import { Scards, ScardsItem } from './Cards.styled'
+import { EmptyMessage, Scards, ScardsItem } from './Cards.styled'
 
 export default function Cards({ cards, loading }) {
+	if (loading) {
+		return (
+			<Scards>
+				{Array(3)
+					.fill(null)
+					.map((_, index) => (
+						<ScardsItem key={index}>
+							<CardLoader />
+						</ScardsItem>
+					))}
+			</Scards>
+		)
+	}
+
+	if (cards.length === 0) {
+		return <EmptyMessage>Задач пока нет</EmptyMessage>
+	}
+
 	return (
 		<Scards>
-			{(loading ? Array(3).fill({}) : cards).map((card, index) => (
-				<ScardsItem key={card._id || index}>
-					{loading ? (
-						<CardLoader />
-					) : (
-						<Card
-							id={card._id}
-							theme={topicMapping[card.topic] || 'default'}
-							topic={card.topic}
-							title={card.title}
-							date={card.date}
-						/>
-					)}
+			{cards.map(card => (
+				<ScardsItem key={card._id}>
+					<Card
+						id={card._id}
+						theme={topicMapping[card.topic] || 'default'}
+						topic={card.topic}
+						title={card.title}
+						date={card.date}
+					/>
 				</ScardsItem>
 			))}
 		</Scards>

@@ -28,7 +28,6 @@ export default function Card({ id, topic, theme, title, date }) {
 					<Ctitle>{title}</Ctitle>
 				</Link>
 				<Cdate>
-					{/* svg оставлен как есть */}
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						width='13'

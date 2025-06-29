@@ -12,7 +12,14 @@ export default function Main({ loading, cards, error }) {
 		)
 	}
 
-	// группируем карты по статусу
+	const allStatuses = [
+		'Без статуса',
+		'Нужно сделать',
+		'В работе',
+		'Тестирование',
+		'Готово',
+	]
+
 	const cardsByStatus = cards.reduce((acc, card) => {
 		if (!acc[card.status]) acc[card.status] = []
 		acc[card.status].push(card)
@@ -24,12 +31,12 @@ export default function Main({ loading, cards, error }) {
 			<Scontainer>
 				<SmainBlock>
 					<SmainContent>
-						{Object.entries(cardsByStatus).map(([status, cards]) => (
+						{allStatuses.map(status => (
 							<Column
 								key={status}
 								title={status}
 								loading={loading}
-								cards={cards}
+								cards={cardsByStatus[status] || []}
 							/>
 						))}
 					</SmainContent>
