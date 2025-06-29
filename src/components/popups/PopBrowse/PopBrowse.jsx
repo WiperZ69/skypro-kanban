@@ -1,136 +1,179 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { topicMapping } from '../../../data'
+import { deleteCard, editCard } from '../../../services/api'
 import { Calendar } from '../../Calendar/Calendar'
-import {
-	BrowseFormArea,
-	BrowseFormBlock,
-	BrowseFormLabel,
-	BtnBrowseBlock,
-	BtnBrowseClose,
-	BtnBrowseDelete,
-	BtnBrowseEdit,
-	BtnEditBlock,
-	BtnEditCancel,
-	BtnEditClose,
-	BtnEditDelete,
-	BtnEditSave,
-	BtnGroup,
-	CategoriesTheme,
-	CategoriesThemeText,
-	CategoriesTitle,
-	SPopBrowse,
-	SPopBrowseBlock,
-	SPopBrowseClose,
-	SPopBrowseContainer,
-	SPopBrowseContent,
-	SPopBrowseForm,
-	SPopBrowseTopBlock,
-	SPopBrowseTtl,
-	SPopBrowseWrap,
-	StatusBlock,
-	StatusTheme,
-	StatusThemes,
-	StatusThemeText,
-	StatusTitle,
-	ThemeDownCategories,
-} from './PopBrowse.styled'
+import * as S from './PopBrowse.styled'
 
-export default function PopBrowse({ card, onClose }) {
+const STATUSES = [
+	'Без статуса',
+	'Нужно сделать',
+	'В работе',
+	'Тестирование',
+	'Готово',
+]
+
+export default function PopBrowse({ loading, error, card, onClose }) {
 	const [isEditing, setIsEditing] = useState(false)
-	const theme = card?.topic ? topicMapping[card.topic] : 'orange'
+	const [editedCard, setEditedCard] = useState(null)
 
+	useEffect(() => {
+		if (card) {
+			setEditedCard(card)
+		}
+	}, [card])
 	const handleEdit = () => setIsEditing(true)
-	const handleCancel = () => setIsEditing(false)
-	const handleSave = () => {
+
+	const handleCancel = () => {
+		setEditedCard(card)
 		setIsEditing(false)
 	}
-	const handleDelete = () => {
-		// Тут возможно удаление с сервера
-		onClose()
+
+	const handleSave = async () => {
+		try {
+			await editCard(card._id, editedCard)
+			setIsEditing(false)
+		} catch (error) {
+			console.error('Ошибка при сохранении:', error.message)
+		}
+	}
+
+	const handleDelete = async () => {
+		try {
+			await deleteCard(card._id)
+			onClose()
+		} catch (error) {
+			console.error('Ошибка при удалении:', error.message)
+		}
+	}
+
+	const handleInputChange = e => {
+		const { name, value } = e.target
+		setEditedCard(prev => ({ ...prev, [name]: value }))
+	}
+
+	const handleStatusChange = status => {
+		setEditedCard(prev => ({ ...prev, status }))
+	}
+
+	if (loading || !editedCard) {
+		return (
+			<S.PopBrowse>
+				<S.PopBrowseContainer onClick={onClose}>
+					<S.PopBrowseBlock onClick={e => e.stopPropagation()}>
+						<S.PopBrowseContent>
+							<S.LoadingMessage>Загрузка карточки...</S.LoadingMessage>
+						</S.PopBrowseContent>
+					</S.PopBrowseBlock>
+				</S.PopBrowseContainer>
+			</S.PopBrowse>
+		)
+	}
+
+	if (error) {
+		return (
+			<S.PopBrowse>
+				<S.PopBrowseContainer onClick={onClose}>
+					<S.PopBrowseBlock onClick={e => e.stopPropagation()}>
+						<S.PopBrowseContent>
+							<S.ErrorMessage>Ошибка: {error}</S.ErrorMessage>
+						</S.PopBrowseContent>
+					</S.PopBrowseBlock>
+				</S.PopBrowseContainer>
+			</S.PopBrowse>
+		)
 	}
 
 	return (
-		<SPopBrowse id='popBrowse'>
-			<SPopBrowseContainer onClick={onClose}>
-				<SPopBrowseBlock onClick={e => e.stopPropagation()}>
-					<SPopBrowseContent>
-						<SPopBrowseTopBlock>
-							<SPopBrowseTtl>{card?.title || 'Название задачи'}</SPopBrowseTtl>
-							<CategoriesTheme theme={theme} $isActive>
-								<CategoriesThemeText theme={theme}>
-									{card?.topic || 'Web Design'}
-								</CategoriesThemeText>
-							</CategoriesTheme>
-							<SPopBrowseClose onClick={onClose}>✖</SPopBrowseClose>
-						</SPopBrowseTopBlock>
-						<StatusBlock>
-							<StatusTitle>Статус</StatusTitle>
-							<StatusThemes>
-								<StatusTheme $isHidden>
-									<StatusThemeText>Без статуса</StatusThemeText>
-								</StatusTheme>
-								<StatusTheme theme='gray'>
-									<StatusThemeText theme='gray'>Нужно сделать</StatusThemeText>
-								</StatusTheme>
-								<StatusTheme $isHidden>
-									<StatusThemeText>В работе</StatusThemeText>
-								</StatusTheme>
-								<StatusTheme $isHidden>
-									<StatusThemeText>Тестирование</StatusThemeText>
-								</StatusTheme>
-								<StatusTheme $isHidden>
-									<StatusThemeText>Готово</StatusThemeText>
-								</StatusTheme>
-							</StatusThemes>
-						</StatusBlock>
-						<SPopBrowseWrap>
-							<SPopBrowseForm id='formBrowseCard' action='#'>
-								<BrowseFormBlock>
-									<BrowseFormLabel htmlFor='textArea01'>
+		<S.PopBrowse>
+			<S.PopBrowseContainer onClick={onClose}>
+				<S.PopBrowseBlock onClick={e => e.stopPropagation()}>
+					<S.PopBrowseContent>
+						<S.PopBrowseTopBlock>
+							<S.PopBrowseTtl>
+								{editedCard?.title || 'Название задачи'}
+							</S.PopBrowseTtl>
+							<S.Theme
+								theme={topicMapping[editedCard?.topic] || 'orange'}
+								$isActive
+							>
+								{editedCard?.topic || 'Web Design'}
+							</S.Theme>
+						</S.PopBrowseTopBlock>
+
+						<S.StatusBlock>
+							<S.StatusTitle>Статус</S.StatusTitle>
+							<S.StatusThemes>
+								{isEditing ? (
+									STATUSES.map(status => (
+										<S.Theme
+											key={status}
+											theme={status === editedCard.status ? 'gray' : 'default'}
+											$isActive={status === editedCard.status}
+											onClick={() => handleStatusChange(status)}
+										>
+											{status}
+										</S.Theme>
+									))
+								) : (
+									<S.Theme theme='gray' $isActive>
+										{editedCard.status}
+									</S.Theme>
+								)}
+							</S.StatusThemes>
+						</S.StatusBlock>
+
+						<S.PopBrowseWrap>
+							<S.PopBrowseForm onSubmit={e => e.preventDefault()}>
+								<S.BrowseFormBlock>
+									<S.BrowseFormLabel htmlFor='textArea01'>
 										Описание задачи
-									</BrowseFormLabel>
-									<BrowseFormArea
-										name='text'
+									</S.BrowseFormLabel>
+									<S.BrowseFormArea
+										name='description'
 										id='textArea01'
+										value={editedCard.description || ''}
+										onChange={handleInputChange}
 										readOnly={!isEditing}
-										placeholder='Введите описание задачи...'
-									></BrowseFormArea>
-								</BrowseFormBlock>
-							</SPopBrowseForm>
+										$isEditing={isEditing}
+										placeholder='Описание задачи'
+									/>
+								</S.BrowseFormBlock>
+							</S.PopBrowseForm>
 							<Calendar />
-						</SPopBrowseWrap>
-						<ThemeDownCategories>
-							<CategoriesTitle>Категория</CategoriesTitle>
-							<CategoriesTheme theme='orange' $isActive>
-								<CategoriesThemeText theme='orange'>
-									Web Design
-								</CategoriesThemeText>
-							</CategoriesTheme>
-						</ThemeDownCategories>
-						<BtnBrowseBlock $isHidden={isEditing}>
-							<BtnGroup>
-								<BtnBrowseEdit onClick={handleEdit}>
+						</S.PopBrowseWrap>
+						<S.BtnBlock $isVisible={!isEditing}>
+							<S.BtnGroup>
+								<S.Button $variant='secondary' onClick={handleEdit}>
 									Редактировать задачу
-								</BtnBrowseEdit>
-								<BtnBrowseDelete onClick={handleDelete}>
+								</S.Button>
+								<S.Button $variant='secondary' onClick={handleDelete}>
 									Удалить задачу
-								</BtnBrowseDelete>
-							</BtnGroup>
-							<BtnBrowseClose onClick={onClose}>Закрыть</BtnBrowseClose>
-						</BtnBrowseBlock>
-						<BtnEditBlock $isHidden={!isEditing}>
-							<BtnGroup>
-								<BtnEditSave onClick={handleSave}>Сохранить</BtnEditSave>
-								<BtnEditCancel onClick={handleCancel}>Отменить</BtnEditCancel>
-								<BtnEditDelete id='btnDelete' onClick={handleDelete}>
+								</S.Button>
+							</S.BtnGroup>
+							<S.Button $variant='primary' onClick={onClose}>
+								Закрыть
+							</S.Button>
+						</S.BtnBlock>
+
+						<S.BtnBlock $isVisible={isEditing}>
+							<S.BtnGroup>
+								<S.Button $variant='primary' onClick={handleSave}>
+									Сохранить
+								</S.Button>
+								<S.Button $variant='secondary' onClick={handleCancel}>
+									Отменить
+								</S.Button>
+								<S.Button $variant='secondary' onClick={handleDelete}>
 									Удалить задачу
-								</BtnEditDelete>
-							</BtnGroup>
-							<BtnEditClose onClick={onClose}>Закрыть</BtnEditClose>
-						</BtnEditBlock>
-					</SPopBrowseContent>
-				</SPopBrowseBlock>
-			</SPopBrowseContainer>
-		</SPopBrowse>
+								</S.Button>
+							</S.BtnGroup>
+							<S.Button $variant='primary' onClick={onClose}>
+								Закрыть
+							</S.Button>
+						</S.BtnBlock>
+					</S.PopBrowseContent>
+				</S.PopBrowseBlock>
+			</S.PopBrowseContainer>
+		</S.PopBrowse>
 	)
 }

@@ -14,3 +14,9 @@ export const Scards = styled.div`
 export const ScardsItem = styled.div`
 	padding: 5px;
 `
+
+export const EmptyMessage = styled.div`
+	padding: 20px;
+	color: #999;
+	font-style: italic;
+`

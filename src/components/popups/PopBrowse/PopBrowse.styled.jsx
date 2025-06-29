@@ -1,337 +1,212 @@
-import styled, { css, keyframes } from 'styled-components'
-import { Hover01, Hover03, SubTtl } from '../../../styles/GlobalStyles'
+import styled from 'styled-components'
 
-const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
+export const PopBrowse = styled.div`
+	position: fixed;
+	inset: 0;
+	z-index: 50;
+	background-color: rgba(0, 0, 0, 0.5);
 `
 
-const scaleIn = keyframes`
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-`
-
-export const SPopBrowse = styled.div`
-	display: block;
+export const PopBrowseContainer = styled.div`
 	width: 100%;
 	height: 100%;
-	min-width: 375px;
-	min-height: 100vh;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 7;
-`
-
-export const SPopBrowseContainer = styled.div`
-	width: 100%;
-	height: 100%;
-	min-height: 100vh;
-	padding: 0 16px;
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background: rgba(0, 0, 0, 0.4);
-	animation: ${fadeIn} 0.3s ease-in;
 `
 
-export const SPopBrowseBlock = styled.div`
-	display: block;
-	margin: 0 auto;
-	background-color: #ffffff;
-	max-width: 630px;
-	width: 100%;
-	padding: 40px 30px 38px;
-	border-radius: 10px;
-	border: 0.7px solid #d4dbe5;
-	position: relative;
-	animation: ${scaleIn} 0.3s ease-out;
+export const PopBrowseBlock = styled.div`
+	width: 630px;
+	max-height: 90vh;
+	overflow-y: auto;
+	background-color: #fff;
+	border-radius: 16px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+	padding: 40px 30px 48px 30px;
 `
 
-export const SPopBrowseContent = styled.div`
-	display: block;
-	text-align: left;
+export const PopBrowseContent = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
 `
 
-export const SPopBrowseTopBlock = styled.div`
+export const PopBrowseTopBlock = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 18px;
+	gap: 16px;
 `
 
-export const SPopBrowseTtl = styled.h3`
-	color: #000;
+export const PopBrowseTtl = styled.h2`
+	flex-grow: 1;
 	font-size: 20px;
 	font-weight: 600;
-	line-height: 24px;
 `
 
-export const SPopBrowseClose = styled.div`
-	position: absolute;
-	top: 10px;
-	right: 10px;
+export const PopBrowseClose = styled.button`
+	background: none;
+	border: none;
 	font-size: 20px;
 	cursor: pointer;
-	color: #000;
-	&:hover {
-		color: #666;
-	}
 `
 
-export const SPopBrowseWrap = styled.div`
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-between;
-`
-
-export const SPopBrowseForm = styled.form`
-	max-width: 370px;
-	width: 100%;
-	display: block;
-	margin-bottom: 20px;
-`
-
-export const BrowseFormBlock = styled.div`
+export const StatusBlock = styled.div`
 	display: flex;
 	flex-direction: column;
+	gap: 12px;
 `
 
-export const BrowseFormLabel = styled.label`
-	${SubTtl}
-`
-
-export const BrowseFormArea = styled.textarea`
-	max-width: 370px;
-	width: 100%;
-	outline: none;
-	padding: 14px;
-	background: #eaeef6;
-	border: 0.7px solid rgba(148, 166, 190, 0.4);
-	border-radius: 8px;
-	font-size: 14px;
-	line-height: 1;
-	letter-spacing: -0.14px;
-	margin-top: 14px;
-	height: 200px;
-	&::-moz-placeholder {
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 1px;
-		color: #94a6be;
-		letter-spacing: -0.14px;
-	}
-	&::placeholder {
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 1px;
-		color: #94a6be;
-		letter-spacing: -0.14px;
-	}
-`
-
-// Стили для тем
-const themeStyles = {
-	orange: css`
-		background-color: #ffe4c2;
-		color: #ff6d00;
-	`,
-	green: css`
-		background-color: #b4fdd1;
-		color: #06b16e;
-	`,
-	purple: css`
-		background-color: #e9d4ff;
-		color: #9a48f1;
-	`,
-	gray: css`
-		background-color: #94a6be;
-		color: #ffffff;
-	`,
-}
-
-// Категории
-export const CategoriesTheme = styled.div`
-	display: inline-block;
-	width: auto;
-	height: 30px;
-	padding: 8px 20px;
-	border-radius: 24px;
-	margin-right: 7px;
-	opacity: 0.4;
-	${props =>
-		props.isActive &&
-		css`
-			opacity: 1;
-		`}
-	${props => themeStyles[props.theme]}
-`
-
-export const CategoriesThemeText = styled.p`
+export const StatusTitle = styled.h3`
 	font-size: 14px;
 	font-weight: 600;
-	line-height: 14px;
-	white-space: nowrap;
-	${props => themeStyles[props.theme]}
-`
-
-// Статус
-export const StatusBlock = styled.div`
-	margin-bottom: 11px;
-`
-
-export const StatusTitle = styled.p`
-	${SubTtl}
-	margin-bottom: 14px;
 `
 
 export const StatusThemes = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	align-items: flex-start;
-	justify-content: flex-start;
+	gap: 8px;
 `
 
-export const StatusTheme = styled.div`
-	border-radius: 24px;
-	border: 0.7px solid rgba(148, 166, 190, 0.4);
-	color: #94a6be;
-	padding: 11px 14px 10px;
-	margin-right: 7px;
-	margin-bottom: 7px;
-	${props =>
-		props.isHidden &&
-		css`
-			display: none;
-		`}
-	${props => props.theme && themeStyles[props.theme]}
-`
-
-export const StatusThemeText = styled.p`
-	font-size: 14px;
-	line-height: 1;
-	letter-spacing: -0.14px;
-	${props => props.theme && themeStyles[props.theme]}
-`
-
-// Категория внизу
-export const ThemeDownCategories = styled.div`
-	display: none;
-	margin-bottom: 20px;
-`
-
-export const CategoriesTitle = styled.p`
-	${SubTtl}
-	margin-bottom: 14px;
-`
-
-// Кнопки (Browse)
-export const BtnBrowseBlock = styled.div`
+export const PopBrowseWrap = styled.div`
 	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-start;
+	gap: 32px;
+`
+
+export const PopBrowseForm = styled.form`
+	flex: 1;
+`
+
+export const BrowseFormBlock = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+`
+
+export const BrowseFormLabel = styled.label`
+	font-size: 14px;
+	font-weight: 600;
+`
+
+export const BrowseFormArea = styled.textarea`
+	resize: vertical;
+	min-height: 200px;
+	font-size: 14px;
+	padding: 14px;
+	border-radius: 8px;
+	background-color: ${({ $isEditing }) => ($isEditing ? '#ffffff' : '#eaeef6')};
+	border: ${({ $isEditing }) =>
+		$isEditing ? '0.70px solid rgba(148, 166, 190, 0.4)' : 'none'};
+	:focus {
+		border: 0 none #fff;
+		overflow: hidden;
+		outline: none;
+	}
+`
+
+export const ThemeDownCategories = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+`
+
+export const CategoriesTitle = styled.h3`
+	font-size: 18px;
+	font-weight: 600;
+`
+
+export const Theme = styled.div`
+	padding: 6px 12px;
+	border-radius: 20px;
+	font-size: 14px;
+	background-color: ${({ theme }) => {
+		switch (theme) {
+			case 'gray':
+				return '#94A6BE'
+			case 'orange':
+				return '#ffe4c2'
+			case 'purple':
+				return '#e9d4ff'
+			case 'green':
+				return '#b4fdd1'
+			default:
+				return 'transparent'
+		}
+	}};
+	color: ${({ theme }) => {
+		switch (theme) {
+			case 'gray':
+				return '#fff'
+			case 'orange':
+				return '#ff6d00'
+			case 'purple':
+				return '#9a48f1'
+			case 'green':
+				return '#06b16e'
+			default:
+				return '#94A6BE'
+		}
+	}};
+	border: ${({ theme }) => {
+		switch (theme) {
+			case 'gray':
+				return '0.7px solid #94A6BE'
+			case 'orange':
+				return 'none'
+			case 'purple':
+				return 'none'
+			case 'green':
+				return 'none'
+			default:
+				return '0.7px solid #94A6BE'
+		}
+	}};
+	cursor: pointer;
+	opacity: ${({ $isActive }) => ($isActive ? 1 : 0.6)};
+	transition: 0.2s;
+`
+
+export const BtnBlock = styled.div`
+	display: ${({ $isVisible }) => ($isVisible ? 'flex' : 'none')};
 	justify-content: space-between;
-	opacity: ${props => (props.isHidden ? 0 : 1)};
-	transition: opacity 0.3s;
-	${props =>
-		props.isHidden &&
-		css`
-			display: none;
-		`}
 `
 
 export const BtnGroup = styled.div`
 	display: flex;
-	button {
-		margin-right: 8px;
+	gap: 12px;
+`
+
+export const Button = styled.button`
+	padding: 10px 14px;
+	font-size: 14px;
+	border-radius: 4px;
+	cursor: pointer;
+	background-color: ${({ $variant }) =>
+		$variant === 'primary' ? '#565eef' : 'transparent'};
+	color: ${({ $variant }) => ($variant === 'primary' ? '#fff' : '#565eef')};
+	border: ${({ $variant }) =>
+		$variant === 'primary' ? '0.70px solid #fff' : '0.70px solid #565eef'};
+	transition: background-color 0.3s;
+
+	&:hover {
+		background-color: ${({ $variant }) =>
+			$variant === 'primary' ? '#303f9f' : '#565eef'};
+		color: ${({ $variant }) => ($variant === 'primary' ? '#fff' : '#fff')};
 	}
 `
 
-const btnBorStyles = css`
-	border: 0.7px solid #565eef;
-	background: transparent;
-	color: #565eef;
-	border-radius: 4px;
+export const LoadingMessage = styled.div`
+	padding: 40px;
+	text-align: center;
+	font-size: 16px;
+	color: #999;
+	font-style: italic;
 `
 
-const btnBgStyles = css`
-	background: #565eef;
-	color: #ffffff;
-	border: none;
-`
-
-export const BtnBrowseEdit = styled.button`
-	${btnBorStyles}
-	${Hover03}
-  height: 30px;
-	padding: 0 14px;
-	margin-bottom: 10px;
-`
-
-export const BtnBrowseDelete = styled.button`
-	${btnBorStyles}
-	${Hover03}
-  height: 30px;
-	padding: 0 14px;
-	margin-bottom: 10px;
-`
-
-export const BtnBrowseClose = styled.button`
-	${btnBgStyles}
-	${Hover01}
-  height: 30px;
-	padding: 0 14px;
-	margin-bottom: 10px;
-	border-radius: 4px;
-`
-
-// Кнопки (Edit)
-export const BtnEditBlock = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	justify-content: space-between;
-	opacity: ${props => (props.isHidden ? 0 : 1)};
-	transition: opacity 0.3s;
-	${props =>
-		props.isHidden &&
-		css`
-			display: none;
-		`}
-`
-
-export const BtnEditSave = styled.button`
-	${btnBgStyles}
-	${Hover01}
-  height: 30px;
-	padding: 0 14px;
-	margin-bottom: 10px;
-	border-radius: 4px;
-`
-
-export const BtnEditCancel = styled.button`
-	${btnBorStyles}
-	${Hover03}
-  height: 30px;
-	padding: 0 14px;
-	margin-bottom: 10px;
-	border-radius: 4px;
-`
-
-export const BtnEditDelete = styled.button`
-	${btnBorStyles}
-	${Hover03}
-  height: 30px;
-	padding: 0 14px;
-	margin-bottom: 10px;
-`
-
-export const BtnEditClose = styled.button`
-	${btnBgStyles}
-	${Hover01}
-  height: 30px;
-	padding: 0 14px;
-	margin-bottom: 10px;
-	border-radius: 4px;
+export const ErrorMessage = styled.div`
+	padding: 40px;
+	text-align: center;
+	font-size: 16px;
+	color: red;
+	font-weight: bold;
 `

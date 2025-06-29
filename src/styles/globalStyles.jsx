@@ -61,4 +61,8 @@ export const GlobalStyles = createGlobalStyle`
     height: 100%;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
   }
+
+  textarea {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  }
 `

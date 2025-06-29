@@ -1,12 +1,13 @@
-import { Mcolumn, ScolumnTitle } from './Column.styled'
+import Cards from '../Card/Cards'
+import { Scolumn, ScolumnTitle } from './Column.styled'
 
-export default function Column({ title, children }) {
+export default function Column({ title, cards, loading }) {
 	return (
-		<Mcolumn>
+		<Scolumn>
 			<ScolumnTitle>
 				<p>{title}</p>
 			</ScolumnTitle>
-			{children}
-		</Mcolumn>
+			<Cards cards={cards} loading={loading} />
+		</Scolumn>
 	)
 }

@@ -1,30 +1,43 @@
-import columns from '../../data.js'
-import Cards from '../Card/Cards'
 import Column from '../Column/Column'
 import { Scontainer, Smain, SmainBlock, SmainContent } from './Main.styled.jsx'
 
-export default function Main({ loading, togglePopBrowse }) {
-	const statuses = [...new Set(columns.map(task => task.status))]
+export default function Main({ loading, cards, error }) {
+	if (error) {
+		return (
+			<Smain>
+				<Scontainer>
+					<p>Ошибка: {error}</p>
+				</Scontainer>
+			</Smain>
+		)
+	}
+
+	const allStatuses = [
+		'Без статуса',
+		'Нужно сделать',
+		'В работе',
+		'Тестирование',
+		'Готово',
+	]
+
+	const cardsByStatus = cards.reduce((acc, card) => {
+		if (!acc[card.status]) acc[card.status] = []
+		acc[card.status].push(card)
+		return acc
+	}, {})
 
 	return (
 		<Smain>
 			<Scontainer>
 				<SmainBlock>
 					<SmainContent>
-						{statuses.map((status, index) => (
-							<Column loading={loading} key={index} title={status}>
-								<Cards
-									loading={loading}
-									cards={columns
-										.filter(task => task.status === status)
-										.map(task => ({
-											topic: task.topic,
-											title: task.title,
-											date: task.date,
-										}))}
-									togglePopBrowse={togglePopBrowse}
-								/>
-							</Column>
+						{allStatuses.map(status => (
+							<Column
+								key={status}
+								title={status}
+								loading={loading}
+								cards={cardsByStatus[status] || []}
+							/>
 						))}
 					</SmainContent>
 				</SmainBlock>
