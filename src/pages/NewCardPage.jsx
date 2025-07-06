@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PopNewCard from '../components/popups/PopNewCard/PopNewCard'
 import { CardContext } from '../context/CardContext'
-import { postCard } from '../services/api'
+import { fetchCards, postCard } from '../services/api'
 
 const NewCardPage = () => {
 	const [activeCategory, setActiveCategory] = useState('')
@@ -33,8 +33,9 @@ const NewCardPage = () => {
 		}
 
 		try {
-			const newCard = await postCard(card)
-			setCards(prev => [...prev, newCard])
+			await postCard(card)
+			const updatedCards = await fetchCards()
+			setCards(updatedCards)
 			navigate('/')
 		} catch (error) {
 			console.error('Ошибка при создании карточки:', error)
