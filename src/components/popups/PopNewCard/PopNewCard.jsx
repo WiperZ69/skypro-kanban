@@ -1,24 +1,11 @@
 import { Calendar } from '../../Calendar/Calendar'
-import {
-	Categories,
-	CategoriesP,
-	CategoriesThemes,
-	CategoryText,
-	CategoryTheme,
-	FormNewArea,
-	FormNewBlock,
-	FormNewCreate,
-	FormNewInput,
-	FormNewLabel,
-	SPopNewCard,
-	SPopNewCardBlock,
-	SPopNewCardClose,
-	SPopNewCardContainer,
-	SPopNewCardContent,
-	SPopNewCardForm,
-	SPopNewCardTtl,
-	SPopNewCardWrap,
-} from './PopNewCard.styled'
+import * as S from './PopNewCard.styled'
+
+const categories = [
+	{ color: 'orange', label: 'Web Design' },
+	{ color: 'green', label: 'Research' },
+	{ color: 'purple', label: 'Copywriting' },
+]
 
 export default function PopNewCard({
 	activeCategory,
@@ -27,72 +14,61 @@ export default function PopNewCard({
 	onClose,
 }) {
 	return (
-		<SPopNewCard id='popNewCard'>
-			<SPopNewCardContainer onClick={onClose}>
-				<SPopNewCardBlock onClick={e => e.stopPropagation()}>
-					<SPopNewCardClose onClick={onClose}>✖</SPopNewCardClose>
-					<SPopNewCardContent>
-						<SPopNewCardTtl>Создание задачи</SPopNewCardTtl>
-						<SPopNewCardWrap>
-							<SPopNewCardForm id='formNewCard' onSubmit={onSubmit}>
+		<S.PopNewCard>
+			<S.PopNewCardContainer onClick={onClose}>
+				<S.PopNewCardBlock onClick={e => e.stopPropagation()}>
+					<S.PopNewCardClose onClick={onClose}>✖</S.PopNewCardClose>
+					<S.PopNewCardContent>
+						<S.PopNewCardTtl>Создание задачи</S.PopNewCardTtl>
+						<S.PopNewCardWrap>
+							<S.PopNewCardForm onSubmit={onSubmit}>
 								<input type='hidden' name='category' value={activeCategory} />
-								<FormNewBlock>
-									<FormNewLabel htmlFor='formTitle'>
+								<S.FormNewBlock>
+									<S.FormNewLabel htmlFor='formTitle'>
 										Название задачи
-									</FormNewLabel>
-									<FormNewInput
+									</S.FormNewLabel>
+									<S.FormNewInput
 										type='text'
 										name='name'
 										id='formTitle'
 										placeholder='Введите название задачи...'
 										autoFocus
+										required
 									/>
-								</FormNewBlock>
-								<FormNewBlock>
-									<FormNewLabel htmlFor='textArea'>
+								</S.FormNewBlock>
+								<S.FormNewBlock>
+									<S.FormNewLabel htmlFor='textArea'>
 										Описание задачи
-									</FormNewLabel>
-									<FormNewArea
+									</S.FormNewLabel>
+									<S.FormNewArea
 										name='text'
 										id='textArea'
 										placeholder='Введите описание задачи...'
+										required
 									/>
-								</FormNewBlock>
-							</SPopNewCardForm>
+								</S.FormNewBlock>
+								<S.Categories>
+									<S.CategoriesP>Категория</S.CategoriesP>
+									<S.CategoriesThemes>
+										{categories.map(({ color, label }) => (
+											<S.CategoryTheme
+												key={color}
+												color={color}
+												$isActive={activeCategory === color}
+												onClick={() => onCategoryClick(color)}
+											>
+												<S.CategoryText>{label}</S.CategoryText>
+											</S.CategoryTheme>
+										))}
+									</S.CategoriesThemes>
+								</S.Categories>
+								<S.FormNewCreate type='submit'>Создать задачу</S.FormNewCreate>
+							</S.PopNewCardForm>
 							<Calendar />
-						</SPopNewCardWrap>
-						<Categories>
-							<CategoriesP>Категория</CategoriesP>
-							<CategoriesThemes>
-								<CategoryTheme
-									color='orange'
-									$isActive={activeCategory === 'orange'}
-									onClick={() => onCategoryClick('orange')}
-								>
-									<CategoryText>Web Design</CategoryText>
-								</CategoryTheme>
-								<CategoryTheme
-									color='green'
-									$isActive={activeCategory === 'green'}
-									onClick={() => onCategoryClick('green')}
-								>
-									<CategoryText>Research</CategoryText>
-								</CategoryTheme>
-								<CategoryTheme
-									color='purple'
-									$isActive={activeCategory === 'purple'}
-									onClick={() => onCategoryClick('purple')}
-								>
-									<CategoryText>Copywriting</CategoryText>
-								</CategoryTheme>
-							</CategoriesThemes>
-						</Categories>
-						<FormNewCreate id='btnCreate' onClick={onSubmit}>
-							Создать задачу
-						</FormNewCreate>
-					</SPopNewCardContent>
-				</SPopNewCardBlock>
-			</SPopNewCardContainer>
-		</SPopNewCard>
+						</S.PopNewCardWrap>
+					</S.PopNewCardContent>
+				</S.PopNewCardBlock>
+			</S.PopNewCardContainer>
+		</S.PopNewCard>
 	)
 }
