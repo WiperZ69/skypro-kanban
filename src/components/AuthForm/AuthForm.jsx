@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 import { signIn, signUp } from '../../services/auth'
 import {
 	AuthFormContainer,
@@ -17,6 +18,7 @@ import {
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
 	const navigate = useNavigate()
+	const { updateUserInfo } = useContext(AuthContext)
 
 	// состояние полей
 	const [formData, setFormData] = useState({
@@ -89,8 +91,8 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
 				: await signUp(formData)
 
 			if (data) {
+				updateUserInfo(data)
 				setIsAuth(true)
-				localStorage.setItem('userInfo', JSON.stringify(data))
 				navigate('/')
 			}
 		} catch (err) {

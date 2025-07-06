@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { CardContext } from '../../../context/CardContext'
 import { topicMapping } from '../../../data'
-import { deleteCard, editCard } from '../../../services/api'
+import { deleteCard, editCard, fetchCards } from '../../../services/api'
 import { Calendar } from '../../Calendar/Calendar'
 import * as S from './PopBrowse.styled'
 
@@ -13,6 +14,7 @@ const STATUSES = [
 ]
 
 export default function PopBrowse({ loading, error, card, onClose }) {
+	const { setCards } = useContext(CardContext)
 	const [isEditing, setIsEditing] = useState(false)
 	const [editedCard, setEditedCard] = useState(null)
 
@@ -31,6 +33,8 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 	const handleSave = async () => {
 		try {
 			await editCard(card._id, editedCard)
+			const updatedCards = await fetchCards()
+			setCards(updatedCards)
 			setIsEditing(false)
 		} catch (error) {
 			console.error('Ошибка при сохранении:', error.message)
@@ -40,6 +44,8 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 	const handleDelete = async () => {
 		try {
 			await deleteCard(card._id)
+			const updatedCards = await fetchCards()
+			setCards(updatedCards)
 			onClose()
 		} catch (error) {
 			console.error('Ошибка при удалении:', error.message)
