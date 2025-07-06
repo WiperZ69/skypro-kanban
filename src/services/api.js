@@ -11,7 +11,7 @@ export async function fetchCards() {
 				Authorization: `Bearer ${token}`,
 			},
 		})
-		return data
+		return data.tasks
 	} catch (error) {
 		throw new Error(error.response?.data?.error || error.message)
 	}
@@ -27,7 +27,7 @@ export async function postCard(card) {
 				'Content-Type': '',
 			},
 		})
-		return data.tasks
+		return data.task
 	} catch (error) {
 		throw new Error(error.response?.data?.error || error.message)
 	}

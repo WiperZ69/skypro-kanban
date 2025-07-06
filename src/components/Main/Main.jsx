@@ -1,7 +1,11 @@
+import { useContext } from 'react'
+import { CardContext } from '../../context/CardContext.js'
 import Column from '../Column/Column'
 import { Scontainer, Smain, SmainBlock, SmainContent } from './Main.styled.jsx'
 
-export default function Main({ loading, cards, error }) {
+export default function Main() {
+	const { cards, error } = useContext(CardContext)
+
 	if (error) {
 		return (
 			<Smain>
@@ -20,7 +24,8 @@ export default function Main({ loading, cards, error }) {
 		'Готово',
 	]
 
-	const cardsByStatus = cards.reduce((acc, card) => {
+	const cardsByStatus = cards?.reduce((acc, card) => {
+		if (!card || !card.status) return acc
 		if (!acc[card.status]) acc[card.status] = []
 		acc[card.status].push(card)
 		return acc
@@ -35,7 +40,6 @@ export default function Main({ loading, cards, error }) {
 							<Column
 								key={status}
 								title={status}
-								loading={loading}
 								cards={cardsByStatus[status] || []}
 							/>
 						))}

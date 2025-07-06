@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PopNewCard from '../components/popups/PopNewCard/PopNewCard'
+import { CardContext } from '../context/CardContext'
 import { postCard } from '../services/api'
 
-const NewCardPage = ({ fetchCards }) => {
+const NewCardPage = () => {
 	const [activeCategory, setActiveCategory] = useState('')
 	const navigate = useNavigate()
+	const { setCards } = useContext(CardContext)
 
 	const handleCategoryClick = color => {
 		setActiveCategory(color)
@@ -31,8 +33,8 @@ const NewCardPage = ({ fetchCards }) => {
 		}
 
 		try {
-			await postCard(card)
-			await fetchCards()
+			const newCard = await postCard(card)
+			setCards(prev => [...prev, newCard])
 			navigate('/')
 		} catch (error) {
 			console.error('Ошибка при создании карточки:', error)
