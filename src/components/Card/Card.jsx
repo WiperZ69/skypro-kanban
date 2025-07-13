@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { formatDate } from '../../utils/formatDate'
 import {
 	Cbtn,
 	Ccard,
@@ -10,12 +11,12 @@ import {
 	Ctitle,
 } from './Card.styled'
 
-export default function Card({ id, topic, theme, title, date }) {
+export default function Card({ id, topic, colorTheme, title, date }) {
 	return (
 		<Ccard>
 			<Cgroup>
-				<Ctheme theme={theme}>
-					<CthemeText theme={theme}>{topic}</CthemeText>
+				<Ctheme $colorTheme={colorTheme}>
+					<CthemeText $colorTheme={colorTheme}>{topic}</CthemeText>
 				</Ctheme>
 				<Cbtn to={`/card/${id}`}>
 					<div />
@@ -56,7 +57,7 @@ export default function Card({ id, topic, theme, title, date }) {
 							</clipPath>
 						</defs>
 					</svg>
-					<p>{date}</p>
+					<p>{formatDate(date)}</p>
 				</Cdate>
 			</Ccontent>
 		</Ccard>

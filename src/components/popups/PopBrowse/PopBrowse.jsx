@@ -3,6 +3,7 @@ import { CardContext } from '../../../context/CardContext'
 import { topicMapping } from '../../../data'
 import { deleteCard, editCard, fetchCards } from '../../../services/api'
 import { Calendar } from '../../Calendar/Calendar'
+import ButtonWithLoader from '../../Loaders/ButtonWithLoader'
 import * as S from './PopBrowse.styled'
 
 const STATUSES = [
@@ -17,12 +18,18 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 	const { setCards } = useContext(CardContext)
 	const [isEditing, setIsEditing] = useState(false)
 	const [editedCard, setEditedCard] = useState(null)
+	const [isSaving, setIsSaving] = useState(false)
+	const [isDeleting, setIsDeleting] = useState(false)
 
 	useEffect(() => {
 		if (card) {
-			setEditedCard(card)
+			setEditedCard({
+				...card,
+				date: card.date || new Date().toISOString(),
+			})
 		}
 	}, [card])
+
 	const handleEdit = () => setIsEditing(true)
 
 	const handleCancel = () => {
@@ -31,6 +38,7 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 	}
 
 	const handleSave = async () => {
+		setIsSaving(true)
 		try {
 			await editCard(card._id, editedCard)
 			const updatedCards = await fetchCards()
@@ -38,10 +46,13 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 			setIsEditing(false)
 		} catch (error) {
 			console.error('Ошибка при сохранении:', error.message)
+		} finally {
+			setIsSaving(false)
 		}
 	}
 
 	const handleDelete = async () => {
+		setIsDeleting(true)
 		try {
 			await deleteCard(card._id)
 			const updatedCards = await fetchCards()
@@ -49,6 +60,8 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 			onClose()
 		} catch (error) {
 			console.error('Ошибка при удалении:', error.message)
+		} finally {
+			setIsDeleting(false)
 		}
 	}
 
@@ -98,12 +111,12 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 							<S.PopBrowseTtl>
 								{editedCard?.title || 'Название задачи'}
 							</S.PopBrowseTtl>
-							<S.Theme
-								theme={topicMapping[editedCard?.topic] || 'orange'}
+							<S.ThemeBlock
+								$themeColor={topicMapping[editedCard?.topic] || 'Цвет задачи'}
 								$isActive
 							>
-								{editedCard?.topic || 'Web Design'}
-							</S.Theme>
+								{editedCard?.topic || 'Статус задачи'}
+							</S.ThemeBlock>
 						</S.PopBrowseTopBlock>
 
 						<S.StatusBlock>
@@ -111,19 +124,21 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 							<S.StatusThemes>
 								{isEditing ? (
 									STATUSES.map(status => (
-										<S.Theme
+										<S.ThemeBlock
 											key={status}
-											theme={status === editedCard.status ? 'gray' : 'default'}
+											$themeColor={
+												status === editedCard.status ? 'gray' : 'default'
+											}
 											$isActive={status === editedCard.status}
 											onClick={() => handleStatusChange(status)}
 										>
 											{status}
-										</S.Theme>
+										</S.ThemeBlock>
 									))
 								) : (
-									<S.Theme theme='gray' $isActive>
+									<S.ThemeBlock $themeColor='gray' $isActive>
 										{editedCard.status}
-									</S.Theme>
+									</S.ThemeBlock>
 								)}
 							</S.StatusThemes>
 						</S.StatusBlock>
@@ -145,16 +160,27 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 									/>
 								</S.BrowseFormBlock>
 							</S.PopBrowseForm>
-							<Calendar />
+							<Calendar
+								isEditing={isEditing}
+								selectedDate={new Date(editedCard.date)}
+								onDateSelect={date =>
+									setEditedCard(prev => ({ ...prev, date: date.toISOString() }))
+								}
+							/>
 						</S.PopBrowseWrap>
+
 						<S.BtnBlock $isVisible={!isEditing}>
 							<S.BtnGroup>
 								<S.Button $variant='secondary' onClick={handleEdit}>
 									Редактировать задачу
 								</S.Button>
-								<S.Button $variant='secondary' onClick={handleDelete}>
+								<ButtonWithLoader
+									$variant='secondary'
+									onClick={handleDelete}
+									loading={isDeleting}
+								>
 									Удалить задачу
-								</S.Button>
+								</ButtonWithLoader>
 							</S.BtnGroup>
 							<S.Button $variant='primary' onClick={onClose}>
 								Закрыть
@@ -163,15 +189,23 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 
 						<S.BtnBlock $isVisible={isEditing}>
 							<S.BtnGroup>
-								<S.Button $variant='primary' onClick={handleSave}>
+								<ButtonWithLoader
+									$variant='primary'
+									onClick={handleSave}
+									loading={isSaving}
+								>
 									Сохранить
-								</S.Button>
+								</ButtonWithLoader>
 								<S.Button $variant='secondary' onClick={handleCancel}>
 									Отменить
 								</S.Button>
-								<S.Button $variant='secondary' onClick={handleDelete}>
+								<ButtonWithLoader
+									$variant='secondary'
+									onClick={handleDelete}
+									loading={isDeleting}
+								>
 									Удалить задачу
-								</S.Button>
+								</ButtonWithLoader>
 							</S.BtnGroup>
 							<S.Button $variant='primary' onClick={onClose}>
 								Закрыть

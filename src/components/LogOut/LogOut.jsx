@@ -1,33 +1,36 @@
-import { useNavigate } from "react-router-dom";
-import { ModalBlock, ModalButton, ModalContainer, Overlay, QuestionText } from "./LogOut.styled";
+import { useNavigate } from 'react-router-dom'
+import {
+	ModalBlock,
+	ModalButton,
+	ModalContainer,
+	ModalOverlay,
+	QuestionText,
+} from './LogOut.styled'
 
+const LogOut = ({ updateUserInfo }) => {
+	const navigate = useNavigate()
 
-const LogoutModal = ({ setIsAuth }) => {
+	function handleLogout(e) {
+		e.preventDefault()
+		updateUserInfo(null)
+		navigate('/sign-in')
+	}
+	function cancelLogout(e) {
+		e.preventDefault()
+		navigate('/')
+	}
 
-    const navigate = useNavigate()
-    
-    function handleLogout(e) {
-        e.preventDefault()
-        setIsAuth(false)
-        navigate('/sign-in')
-    }
-    function cancelLogout(e) {
-        e.preventDefault()
-        setIsAuth(true)
-        navigate('/')
-    }
+	return (
+		<ModalOverlay>
+			<ModalContainer>
+				<QuestionText>Выйти из аккаунта?</QuestionText>
+				<ModalBlock>
+					<ModalButton onClick={handleLogout}>Да, выйти</ModalButton>
+					<ModalButton onClick={cancelLogout}>Нет, остаться</ModalButton>
+				</ModalBlock>
+			</ModalContainer>
+		</ModalOverlay>
+	)
+}
 
-  return (
-    <Overlay>
-      <ModalContainer>
-        <QuestionText>Выйти из аккаунта?</QuestionText>
-        <ModalBlock>
-          <ModalButton onClick={handleLogout}>Да, выйти</ModalButton>
-          <ModalButton onClick={cancelLogout}>Нет, остаться</ModalButton>
-        </ModalBlock>
-      </ModalContainer>
-    </Overlay>
-  );
-};
-
-export default LogoutModal;
+export default LogOut

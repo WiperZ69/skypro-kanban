@@ -31,7 +31,7 @@ export default function Cards({ cards }) {
 				<ScardsItem key={card._id}>
 					<Card
 						id={card._id}
-						theme={topicMapping[card.topic] || 'default'}
+						colorTheme={topicMapping[card.topic] || 'default'}
 						topic={card.topic}
 						title={card.title}
 						date={card.date}

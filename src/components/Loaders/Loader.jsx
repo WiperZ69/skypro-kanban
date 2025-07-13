@@ -1,11 +1,11 @@
+import { useTheme } from 'styled-components'
 import { Cloader } from './Loader.styled'
 
-const Loader = ({
-	width = 220,
-	height = 130,
-	colorStart = '#c1cddc',
-	colorEnd = '#e9eef7',
-}) => {
+const Loader = ({ width = 220, height = 130 }) => {
+	const theme = useTheme()
+	const colorStart = theme.loaderStart || '#c1cddc'
+	const colorEnd = theme.loaderEnd || '#e9eef7'
+
 	return (
 		<Cloader
 			style={{

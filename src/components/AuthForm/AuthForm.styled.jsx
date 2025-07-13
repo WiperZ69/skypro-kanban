@@ -5,7 +5,7 @@ import { Hover01 } from '../../styles/GlobalStyles'
 export const AuthFormContainer = styled.div`
 	width: 100vw;
 	height: 100vh;
-	background: #eaeef6;
+	background: ${({ theme }) => theme.colors.tertiary};
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -16,11 +16,11 @@ export const AuthFormModal = styled.div`
 	max-height: 329px;
 	width: 100%;
 	height: 100%;
-	border: 0.7px solid #d4dbe5;
+	border: 0.7px solid ${({ theme }) => theme.colors.secondary};
 	border-radius: 10px;
 	padding: 50px 60px;
 	box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
-	background: #fff;
+	background: ${({ theme }) => theme.colors.background};
 `
 
 export const AuthFormWrapper = styled.div`
@@ -36,7 +36,7 @@ export const AuthFormTitle = styled.h2`
 	line-height: 150%;
 	letter-spacing: -0.03em;
 	text-align: center;
-	color: #000;
+	color: ${({ theme }) => theme.colors.text};
 `
 
 export const AuthFormForm = styled.form`
@@ -55,7 +55,7 @@ export const FormInputWrapper = styled.div`
 `
 
 export const FormInput = styled.input`
-	border: 0.7px solid rgba(148, 166, 190, 0.4);
+	border: 0.7px solid ${({ theme }) => theme.colors.secondary + '66'};
 	border-radius: 8px;
 	padding: 8px 10px;
 	width: 100%;
@@ -65,9 +65,10 @@ export const FormInput = styled.input`
 	font-size: 14px;
 	line-height: 150%;
 	letter-spacing: -0.02em;
-	color: #000;
+	color: ${({ theme }) => theme.colors.text};
+	background-color: ${({ theme }) => theme.colors.background};
 	::placeholder {
-		color: #94a6be;
+		color: ${({ theme }) => theme.colors.secondary};
 	}
 `
 
@@ -78,11 +79,11 @@ export const FormButton = styled.button`
 	max-height: 30px;
 	border-radius: 4px;
 	padding: 8px 10px;
-	background: #565eef;
+	background: ${({ theme }) => theme.colors.primary};
 	font-weight: 500;
 	font-size: 14px;
 	text-align: center;
-	color: #fff;
+	color: ${({ theme }) => theme.colors.buttonText};
 	cursor: pointer;
 	outline: none;
 	border: none;
@@ -102,11 +103,11 @@ export const FormText = styled.p`
 	line-height: 150%;
 	letter-spacing: -0.01em;
 	text-align: center;
-	color: rgba(148, 166, 190, 0.4);
+	color: ${({ theme }) => theme.colors.secondary + '66'};
 `
 
 export const FormLink = styled(Link)`
-	color: rgba(148, 166, 190, 0.4);
+	color: ${({ theme }) => theme.colors.secondary + '66'};
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 150%;

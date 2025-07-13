@@ -1,4 +1,3 @@
-import { useLayoutEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import BrowseCardPage from '../../pages/BrowseCardPage'
 import LogOutPage from '../../pages/LogOutPage'
@@ -10,35 +9,20 @@ import SignInPage from '../../pages/SignInPage'
 import SignUpPage from '../../pages/SignUpPage'
 import { fetchCards } from '../../services/api'
 function AppRoutes() {
-	const [loading, setLoading] = useState(true)
-	const [isAuth, setIsAuth] = useState(false)
-
-	useLayoutEffect(() => {
-		setTimeout(() => {
-			setLoading(false)
-		}, 3000)
-	}, [])
-
 	return (
 		<Routes>
-			<Route element={<PrivateRoute isAuth={isAuth} />}>
-				<Route
-					path='/'
-					element={<MainPage setIsAuth={setIsAuth} loading={loading} />}
-				>
+			<Route element={<PrivateRoute />}>
+				<Route path='/' element={<MainPage />}>
 					<Route
 						path='/card/add'
 						element={<NewCardPage fetchCards={fetchCards} />}
 					/>
 					<Route path='/card/:id' element={<BrowseCardPage />} />
-					<Route
-						path='/logout'
-						element={<LogOutPage setIsAuth={setIsAuth} />}
-					/>
+					<Route path='/logout' element={<LogOutPage />} />
 				</Route>
 			</Route>
-			<Route path='/sign-in' element={<SignInPage setIsAuth={setIsAuth} />} />
-			<Route path='/sign-up' element={<SignUpPage setIsAuth={setIsAuth} />} />
+			<Route path='/sign-in' element={<SignInPage />} />
+			<Route path='/sign-up' element={<SignUpPage />} />
 			<Route path='*' element={<NotFoundPage />} />
 		</Routes>
 	)

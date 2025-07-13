@@ -11,8 +11,8 @@ export const SPopUserSet = styled.div`
 	width: 213px;
 	height: 205px;
 	border-radius: 10px;
-	border: 0.7px solid rgba(148, 166, 190, 0.4);
-	background: #fff;
+	border: 0.7px solid ${({ theme }) => theme.colors.secondary + '66'};
+	background: ${({ theme }) => theme.colors.background};
 	box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21);
 	padding: 34px;
 	text-align: center;
@@ -21,7 +21,7 @@ export const SPopUserSet = styled.div`
 `
 
 export const SPopUserSetName = styled.p`
-	color: #000;
+	color: ${({ theme }) => theme.colors.text};
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 21px;
@@ -30,7 +30,7 @@ export const SPopUserSetName = styled.p`
 `
 
 export const SPopUserSetMail = styled.p`
-	color: #94a6be;
+	color: ${({ theme }) => theme.colors.secondary};
 	font-size: 14px;
 	line-height: 21px;
 	letter-spacing: -0.14px;
@@ -43,7 +43,7 @@ export const SPopUserSetTheme = styled.div`
 	justify-content: space-between;
 	margin-bottom: 30px;
 	p {
-		color: #000;
+		color: ${({ theme }) => theme.colors.text};
 		font-size: 14px;
 		line-height: 21px;
 		letter-spacing: -0.14px;
@@ -53,7 +53,7 @@ export const SPopUserSetTheme = styled.div`
 		width: 24px;
 		height: 13px;
 		border-radius: 100px;
-		background: #eaeef6;
+		background: ${({ theme }) => theme.colors.checkbox};
 		outline: none;
 		-webkit-appearance: none;
 		-moz-appearance: none;
@@ -67,7 +67,7 @@ export const SPopUserSetTheme = styled.div`
 		width: 11px;
 		height: 11px;
 		border-radius: 50%;
-		background-color: #94a6be;
+		background-color: ${({ theme }) => theme.colors.primary};
 		transition: 0.5s;
 	}
 	input:checked[type='checkbox']::before {
@@ -80,12 +80,12 @@ export const SPopUserSetBtn = styled(Link)`
 	height: 30px;
 	padding: 10px 14px;
 	background: transparent;
-	color: #565eef;
+	color: ${({ theme }) => theme.colors.border};
 	border-radius: 4px;
-	border: 1px solid #565eef;
+	border: 1px solid ${({ theme }) => theme.colors.border};
 	transition: all 0.3s;
 	${Hover03}
 	a {
-		color: #565eef;
+		color: ${({ theme }) => theme.colors.primary};
 	}
 `

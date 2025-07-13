@@ -5,7 +5,10 @@ import { CardContext } from '../context/CardContext'
 import { fetchCards, postCard } from '../services/api'
 
 const NewCardPage = () => {
+	const [selectedDate, setSelectedDate] = useState(null)
 	const [activeCategory, setActiveCategory] = useState('')
+	const [loading, setLoading] = useState(false)
+
 	const navigate = useNavigate()
 	const { setCards } = useContext(CardContext)
 
@@ -21,6 +24,7 @@ const NewCardPage = () => {
 
 	const handleSubmit = async e => {
 		e.preventDefault()
+		setLoading(true)
 
 		const formData = new FormData(e.currentTarget)
 
@@ -29,7 +33,9 @@ const NewCardPage = () => {
 			description: formData.get('text') || '',
 			topic: categoryMap[activeCategory] || 'Research',
 			status: 'Без статуса',
-			date: new Date().toISOString(),
+			date: selectedDate
+				? selectedDate.toISOString()
+				: new Date().toISOString(),
 		}
 
 		try {
@@ -39,6 +45,8 @@ const NewCardPage = () => {
 			navigate('/')
 		} catch (error) {
 			console.error('Ошибка при создании карточки:', error)
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -52,6 +60,9 @@ const NewCardPage = () => {
 			onCategoryClick={handleCategoryClick}
 			onSubmit={handleSubmit}
 			onClose={handleClose}
+			selectedDate={selectedDate}
+			onDateSelect={setSelectedDate}
+			loading={loading}
 		/>
 	)
 }

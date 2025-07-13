@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import { signIn, signUp } from '../../services/auth'
+import ButtonWithLoader from '../Loaders/ButtonWithLoader'
 import {
 	AuthFormContainer,
 	AuthFormForm,
@@ -16,9 +17,11 @@ import {
 	FormText,
 } from './AuthForm.styled'
 
-const AuthForm = ({ isSignUp, setIsAuth }) => {
+const AuthForm = ({ isSignUp }) => {
 	const navigate = useNavigate()
 	const { updateUserInfo } = useContext(AuthContext)
+
+	const [loading, setLoading] = useState(false)
 
 	// состояние полей
 	const [formData, setFormData] = useState({
@@ -44,23 +47,19 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
 
 		if (isSignUp && !formData.name.trim()) {
 			newErrors.name = true
-			setError('Заполните все поля')
 			isValid = false
 		}
-
 		if (!formData.login.trim()) {
 			newErrors.login = true
-			setError('Заполните все поля')
 			isValid = false
 		}
-
 		if (!formData.password.trim()) {
 			newErrors.password = true
-			setError('Заполните все поля')
 			isValid = false
 		}
 
 		setErrors(newErrors)
+		if (!isValid) setError('Заполните все поля')
 		return isValid
 	}
 
@@ -79,24 +78,22 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
 	// функция отправки формы
 	const handleSubmit = async e => {
 		e.preventDefault()
-		if (!validateForm()) {
-			// если у нас форма не прошла валидацию, то дальше не продолжаем
-			return
-		}
+		if (!validateForm()) return
+
+		setLoading(true)
 		try {
-			// чтобы не писать две разных функции, выберем нужный запрос через
-			// тернарный оператор
 			const data = !isSignUp
 				? await signIn({ login: formData.login, password: formData.password })
 				: await signUp(formData)
 
 			if (data) {
 				updateUserInfo(data)
-				setIsAuth(true)
 				navigate('/')
 			}
 		} catch (err) {
 			setError(err.message)
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -141,7 +138,14 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
 							/>
 						</FormInputWrapper>
 						<p style={{ color: 'red' }}>{error}</p>
-						<FormButton>{isSignUp ? 'Зарегистрироваться' : 'Войти'}</FormButton>
+						<ButtonWithLoader
+							as={FormButton}
+							type='submit'
+							form='form'
+							loading={loading}
+						>
+							{isSignUp ? 'Зарегистрироваться' : 'Войти'}
+						</ButtonWithLoader>
 
 						{!isSignUp && (
 							<FormGroup>

@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 export const Ccard = styled.div`
 	width: 220px;
 	height: 130px;
-	background-color: #ffffff;
+	background-color: ${({ theme }) => theme.colors.cardBg};
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -34,7 +34,7 @@ export const Cbtn = styled(Link)`
 		width: 4px;
 		height: 4px;
 		border-radius: 50%;
-		background-color: #94a6be;
+		background-color: ${({ theme }) => theme.colors.secondary};
 	}
 `
 
@@ -50,7 +50,7 @@ export const Ctitle = styled.h3`
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 18px;
-	color: #000000;
+	color: ${({ theme }) => theme.colors.text};
 	margin-bottom: 10px;
 `
 
@@ -65,7 +65,7 @@ export const Cdate = styled.div`
 		margin-left: 6px;
 		font-size: 10px;
 		line-height: 13px;
-		color: #94a6be;
+		color: ${({ theme }) => theme.colors.secondary};
 		letter-spacing: 0.2px;
 	}
 `
@@ -73,24 +73,24 @@ export const Cdate = styled.div`
 // Стили для тем
 const themeStyles = {
 	default: css`
-		background-color: #ffe4c2;
-		color: #3e3e3e;
+		background-color: ${({ theme }) => theme.colors.secondary};
+		color: ${({ theme }) => theme.colors.buttonText};
 	`,
 	orange: css`
-		background-color: #ffe4c2;
-		color: #ff6d00;
+		background-color: ${({ theme }) => theme.colors.orangeBg};
+		color: ${({ theme }) => theme.colors.orangeText};
 	`,
 	green: css`
-		background-color: #b4fdd1;
-		color: #06b16e;
+		background-color: ${({ theme }) => theme.colors.greenBg};
+		color: ${({ theme }) => theme.colors.greenText};
 	`,
 	purple: css`
-		background-color: #e9d4ff;
-		color: #9a48f1;
+		background-color: ${({ theme }) => theme.colors.purpleBg};
+		color: ${({ theme }) => theme.colors.purpleText};
 	`,
 	gray: css`
-		background-color: #94a6be;
-		color: #ffffff;
+		background-color: ${({ theme }) => theme.colors.secondary};
+		color: ${({ theme }) => theme.colors.background};
 	`,
 }
 
@@ -99,12 +99,12 @@ export const Ctheme = styled.div`
 	height: 20px;
 	padding: 5px 14px;
 	border-radius: 18px;
-	${props => themeStyles[props.theme] || themeStyles.default}
+	${props => themeStyles[props.$colorTheme] || themeStyles.default}
 `
 
 export const CthemeText = styled.p`
 	font-size: 10px;
 	font-weight: 600;
 	line-height: 10px;
-	${props => themeStyles[props.theme] || themeStyles.default}
+	${props => themeStyles[props.$colorTheme] || themeStyles.default}
 `

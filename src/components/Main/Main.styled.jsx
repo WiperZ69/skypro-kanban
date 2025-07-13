@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Smain = styled.main`
 	width: 100%;
-	background-color: #eaeef6;
+	background-color: ${({ theme }) => theme.colors.tertiary};
 `
 export const Scontainer = styled.div`
 	max-width: 1260px;

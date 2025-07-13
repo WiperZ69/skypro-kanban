@@ -1,183 +1,122 @@
+// Calendar.styled.js
 import styled, { css } from 'styled-components'
-import { SubTtl } from '../../styles/GlobalStyles'
-
-const cellStyles = css`
-	width: 22px;
-	height: 22px;
-	margin: 2px;
-	border-radius: 50%;
-	display: flex;
-	flex-wrap: nowrap;
-	align-items: center;
-	justify-content: center;
-	color: #94a6be;
-	font-size: 10px;
-	line-height: 1;
-	letter-spacing: -0.2px;
-	cursor: pointer;
-`
-
-const cellDayStyles = css`
-	&:hover {
-		color: #94a6be;
-		background-color: #eaeef6;
-	}
-`
-
-const otherMonthStyles = css`
-	color: gray;
-	opacity: 0.5;
-`
-
-const currentStyles = css`
-	font-weight: 700;
-`
-
-const activeDayStyles = css`
-	background-color: #94a6be;
-	color: #ffffff;
-`
-
-const weekendStyles = css`
-	background-color: #f8f9fa;
-	color: green;
-`
-
-// Фильтрация пропсов для CalendarCell
-export const StyledCalendarCell = styled.div.withConfig({
-	shouldForwardProp: prop =>
-		['children', 'onClick', 'className', 'style'].includes(prop),
-})`
-	${cellStyles}
-	${props =>
-		props.isCellDay &&
-		css`
-			${cellDayStyles}
-		`}
-	${props =>
-		props.isWeekend &&
-		css`
-			${weekendStyles}
-		`}
-	${props =>
-		props.isOtherMonth &&
-		css`
-			${otherMonthStyles}
-		`}
-	${props =>
-		props.isCurrent &&
-		css`
-			${currentStyles}
-		`}
-	${props =>
-		props.isActive &&
-		css`
-			${activeDayStyles}
-		`}
-`
-
-// Фильтрация пропсов для SCalendarDayName (сохранено как есть)
-export const StyledCalendarDayName = styled.div.withConfig({
-	shouldForwardProp: prop => ['children', 'className', 'style'].includes(prop),
-})`
-	color: #94a6be;
-	font-size: 10px;
-	font-weight: 500;
-	line-height: normal;
-	letter-spacing: -0.2px;
-	${props =>
-		props.isWeekend &&
-		css`
-			${weekendStyles}
-		`}
-`
 
 export const SCalendar = styled.div`
-	width: 182px;
-	margin-bottom: 18px;
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+	color: #333;
 `
 
-export const SCalendarTtl = styled.p`
-	margin-bottom: 14px;
-	padding: 0 7px;
-	${SubTtl}
+export const SCalendarTtl = styled.h2`
+	font-size: 14px;
+	color: #fff;
+	margin-bottom: 7px;
 `
 
-export const SCalendarBlock = styled.div`
-	display: block;
-`
+export const SCalendarBlock = styled.div``
 
 export const SCalendarNav = styled.div`
-	width: 100%;
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
-	margin-top: 14px;
-	padding: 0 7px;
+	align-items: center;
+	margin-bottom: 7px;
 `
 
 export const SCalendarMonth = styled.div`
-	color: #94a6be;
 	font-size: 14px;
-	line-height: 25px;
-	font-weight: 600;
+	font-weight: semibold;
+	text-transform: capitalize;
+	color: #94a6be;
 `
 
 export const SNavActions = styled.div`
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	gap: 0.5rem;
 `
 
 export const SNavAction = styled.button`
-	width: 18px;
-	height: 25px;
+	background: transparent;
+	border: none;
 	cursor: pointer;
+	padding: 0.3rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: none;
-	border: none;
 
 	svg {
-		fill: #94a6be;
+		fill: #333;
+		transition: fill 0.2s ease;
+	}
+
+	&:hover svg {
+		fill: #0077ff;
 	}
 `
 
-export const SCalendarContent = styled.div`
-	margin-bottom: 12px;
-`
+export const SCalendarContent = styled.div``
 
 export const SCalendarDaysNames = styled.div`
-	display: flex;
-	flex-wrap: nowrap;
-	align-items: center;
-	justify-content: space-between;
-	margin: 7px 0;
-	padding: 0 7px;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	margin-bottom: 0.5rem;
+	gap: 15px;
+`
+
+export const StyledCalendarDayName = styled.div`
+	text-align: center;
+	font-weight: bold;
+	font-size: 10px;
+	color: #94a6be;
 `
 
 export const SCalendarCells = styled.div`
-	width: 182px;
-	height: 126px;
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 10px;
 `
 
-export const CalendarPeriod = styled.div`
-	padding: 0 7px;
-`
-
-export const CalendarPeriodText = styled.p`
-	color: #94a6be;
+export const StyledCalendarCell = styled.div`
+	text-align: center;
 	font-size: 10px;
-	line-height: 1;
-	margin: 0;
-	&.date-end {
-		color: #94a6be;
+	padding: 5px;
+	border-radius: 50%;
+	cursor: pointer;
+	color: #94a6be;
+	transition: background 0.2s ease;
+
+	${props =>
+		props.$isOtherMonth &&
+		css`
+			color: transparent;
+		`}
+
+	${props =>
+		props.$isToday &&
+		css`
+			font-weight: bold;
+			color: #a2acb9ff;
+		`}
+
+  ${props =>
+		props.$isActive &&
+		css`
+			background: #eaeef6;
+		`}
+
+  &:hover {
+		background: #eaeef6;
 	}
 `
 
+export const CalendarPeriod = styled.div`
+	margin-top: 1rem;
+`
+
+export const CalendarPeriodText = styled.p`
+	font-size: 10px;
+	color: #94a6be;
+`
+
 export const DateControl = styled.span`
-	color: #000000;
+	font-weight: bold;
+	color: ${({ theme }) => theme.colors.text};
 `

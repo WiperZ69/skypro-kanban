@@ -1,4 +1,5 @@
 import { Calendar } from '../../Calendar/Calendar'
+import ButtonWithLoader from '../../Loaders/ButtonWithLoader'
 import * as S from './PopNewCard.styled'
 
 const categories = [
@@ -12,6 +13,9 @@ export default function PopNewCard({
 	onCategoryClick,
 	onSubmit,
 	onClose,
+	selectedDate,
+	onDateSelect,
+	loading,
 }) {
 	return (
 		<S.PopNewCard>
@@ -21,7 +25,7 @@ export default function PopNewCard({
 					<S.PopNewCardContent>
 						<S.PopNewCardTtl>Создание задачи</S.PopNewCardTtl>
 						<S.PopNewCardWrap>
-							<S.PopNewCardForm onSubmit={onSubmit}>
+							<S.PopNewCardForm id='NewTaskForm' onSubmit={onSubmit}>
 								<input type='hidden' name='category' value={activeCategory} />
 								<S.FormNewBlock>
 									<S.FormNewLabel htmlFor='formTitle'>
@@ -62,10 +66,23 @@ export default function PopNewCard({
 										))}
 									</S.CategoriesThemes>
 								</S.Categories>
-								<S.FormNewCreate type='submit'>Создать задачу</S.FormNewCreate>
 							</S.PopNewCardForm>
-							<Calendar />
+							<Calendar
+								selectedDate={selectedDate}
+								onDateSelect={onDateSelect}
+								isEditing={true}
+							/>
 						</S.PopNewCardWrap>
+						<S.PopNewCardSubmit>
+							<ButtonWithLoader
+								type='submit'
+								form='NewTaskForm'
+								loading={loading}
+								$variant='primary'
+							>
+								Создать задачу
+							</ButtonWithLoader>
+						</S.PopNewCardSubmit>
 					</S.PopNewCardContent>
 				</S.PopNewCardBlock>
 			</S.PopNewCardContainer>
