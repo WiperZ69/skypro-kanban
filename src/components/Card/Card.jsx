@@ -1,3 +1,4 @@
+import { useDrag } from 'react-dnd'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../utils/formatDate'
 import {
@@ -12,8 +13,23 @@ import {
 } from './Card.styled'
 
 export default function Card({ id, topic, colorTheme, title, date }) {
+	const [{ isDragging }, dragRef] = useDrag({
+		type: 'CARD',
+		item: { id },
+		collect: monitor => ({
+			isDragging: monitor.isDragging(),
+		}),
+	})
+
 	return (
-		<Ccard>
+		<Ccard
+			ref={dragRef}
+			style={{
+				opacity: isDragging ? 0.2 : 1,
+				border: isDragging ? '2px dashed #94A6BE' : 'none',
+				boxShadow: isDragging ? 'none' : '',
+			}}
+		>
 			<Cgroup>
 				<Ctheme $colorTheme={colorTheme}>
 					<CthemeText $colorTheme={colorTheme}>{topic}</CthemeText>

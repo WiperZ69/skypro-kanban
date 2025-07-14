@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import { fetchCards } from '../services/api'
+import {
+	editCard as apiEditCard,
+	fetchCards as apiFetchCards,
+} from '../services/api'
 import { AuthContext } from './AuthContext'
 import { CardContext } from './CardContext'
 
@@ -15,7 +18,7 @@ export const CardProvider = ({ children }) => {
 		const loadCards = async () => {
 			setLoading(true)
 			try {
-				const data = await fetchCards({ token: user.token })
+				const data = await apiFetchCards({ token: user.token })
 				if (data) {
 					setCards(data)
 				} else {
@@ -32,8 +35,19 @@ export const CardProvider = ({ children }) => {
 		loadCards()
 	}, [user?.token])
 
+	const editTask = async (id, newData) => {
+		setCards(prevCards =>
+			prevCards.map(card => (card._id === id ? { ...card, ...newData } : card))
+		)
+		try {
+			await apiEditCard(id, newData)
+		} catch (error) {
+			console.error('❌ Ошибка обновления карточки:', error.message)
+		}
+	}
+
 	return (
-		<CardContext.Provider value={{ cards, setCards, error, loading }}>
+		<CardContext.Provider value={{ cards, setCards, error, loading, editTask }}>
 			{children}
 		</CardContext.Provider>
 	)
