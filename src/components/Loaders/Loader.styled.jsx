@@ -14,10 +14,10 @@ const pulse = keyframes`
 export const Cloader = styled.div`
 	border-radius: 2px;
 	animation: ${pulse} 1.5s infinite ease-in-out;
-	:first-child {
+	&:first-child {
 		border-radius: 18px;
 	}
-	:nth-child(3) {
-		margin-top: 20px;
+	&:last-child {
+		margin-top: 6px;
 	}
 `

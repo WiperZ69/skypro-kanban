@@ -19,7 +19,7 @@ export const PopBrowseBlock = styled.div`
 	width: 630px;
 	max-height: 90vh;
 	overflow-y: auto;
-	background-color: #fff;
+	background-color: ${({ theme }) => theme.colors.cardBg};
 	border-radius: 16px;
 	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 	padding: 40px 30px 48px 30px;
@@ -42,6 +42,7 @@ export const PopBrowseTtl = styled.h2`
 	flex-grow: 1;
 	font-size: 20px;
 	font-weight: 600;
+	color: ${({ theme }) => theme.colors.text};
 `
 
 export const PopBrowseClose = styled.button`
@@ -60,6 +61,7 @@ export const StatusBlock = styled.div`
 export const StatusTitle = styled.h3`
 	font-size: 14px;
 	font-weight: 600;
+	color: ${({ theme }) => theme.colors.text};
 `
 
 export const StatusThemes = styled.div`
@@ -86,6 +88,7 @@ export const BrowseFormBlock = styled.div`
 export const BrowseFormLabel = styled.label`
 	font-size: 14px;
 	font-weight: 600;
+	color: ${({ theme }) => theme.colors.text};
 `
 
 export const BrowseFormArea = styled.textarea`
@@ -94,12 +97,12 @@ export const BrowseFormArea = styled.textarea`
 	font-size: 14px;
 	padding: 14px;
 	border-radius: 8px;
-	background-color: ${({ $isEditing }) => ($isEditing ? '#ffffff' : '#eaeef6')};
-	border: ${({ $isEditing }) =>
-		$isEditing ? '0.70px solid rgba(148, 166, 190, 0.4)' : 'none'};
+	background-color: ${({ theme, $isEditing }) =>
+		$isEditing ? theme.colors.cardBg : theme.colors.tertiary};
+	color: ${({ theme }) => theme.colors.text};
+	border: ${({ $isEditing, theme }) =>
+		$isEditing ? `0.70px solid ${theme.colors.secondary + '60'}` : 'none'};
 	:focus {
-		border: 0 none #fff;
-		overflow: hidden;
 		outline: none;
 	}
 `
@@ -115,50 +118,48 @@ export const CategoriesTitle = styled.h3`
 	font-weight: 600;
 `
 
-export const Theme = styled.div`
+export const ThemeBlock = styled.div`
 	padding: 6px 12px;
 	border-radius: 20px;
 	font-size: 14px;
-	background-color: ${({ theme }) => {
-		switch (theme) {
+	background-color: ${({ $themeColor, theme }) => {
+		switch ($themeColor) {
 			case 'gray':
-				return '#94A6BE'
+				return theme.colors.secondary
 			case 'orange':
-				return '#ffe4c2'
+				return theme.colors.orangeBg
 			case 'purple':
-				return '#e9d4ff'
+				return theme.colors.purpleBg
 			case 'green':
-				return '#b4fdd1'
+				return theme.colors.greenBg
 			default:
 				return 'transparent'
 		}
 	}};
-	color: ${({ theme }) => {
-		switch (theme) {
+	color: ${({ $themeColor, theme }) => {
+		switch ($themeColor) {
 			case 'gray':
-				return '#fff'
+				return theme.colors.tertiary
 			case 'orange':
-				return '#ff6d00'
+				return theme.colors.orangeText
 			case 'purple':
-				return '#9a48f1'
+				return theme.colors.purpleText
 			case 'green':
-				return '#06b16e'
+				return theme.colors.greenText
 			default:
-				return '#94A6BE'
+				return theme.colors.secondary
 		}
 	}};
-	border: ${({ theme }) => {
-		switch (theme) {
+	border: ${({ $themeColor, theme }) => {
+		switch ($themeColor) {
 			case 'gray':
-				return '0.7px solid #94A6BE'
+				return `0.7px solid ${theme.colors.secondary}`
 			case 'orange':
-				return 'none'
 			case 'purple':
-				return 'none'
 			case 'green':
 				return 'none'
 			default:
-				return '0.7px solid #94A6BE'
+				return `0.7px solid ${theme.colors.secondary}`
 		}
 	}};
 	cursor: pointer;
@@ -177,21 +178,38 @@ export const BtnGroup = styled.div`
 `
 
 export const Button = styled.button`
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	padding: 10px 14px;
 	font-size: 14px;
 	border-radius: 4px;
 	cursor: pointer;
-	background-color: ${({ $variant }) =>
-		$variant === 'primary' ? '#565eef' : 'transparent'};
-	color: ${({ $variant }) => ($variant === 'primary' ? '#fff' : '#565eef')};
-	border: ${({ $variant }) =>
-		$variant === 'primary' ? '0.70px solid #fff' : '0.70px solid #565eef'};
+	background-color: ${({ $variant, theme }) =>
+		$variant === 'primary'
+			? theme.colors.buttonPrimary
+			: theme.colors.buttonSecondary};
+	color: ${({ $variant, theme }) =>
+		$variant === 'primary' ? theme.colors.buttonText : theme.colors.border};
+	border: ${({ $variant, theme }) =>
+		$variant === 'primary'
+			? `0.70px solid ${theme.colors.buttonPrimary}`
+			: `0.70px solid ${theme.colors.border}`};
 	transition: background-color 0.3s;
 
 	&:hover {
-		background-color: ${({ $variant }) =>
-			$variant === 'primary' ? '#303f9f' : '#565eef'};
+		background-color: ${({ $variant, theme }) =>
+			$variant === 'primary'
+				? theme.colors.buttonPrimary + '90'
+				: theme.colors.buttonPrimary};
 		color: ${({ $variant }) => ($variant === 'primary' ? '#fff' : '#fff')};
+		border: ${({ $variant, theme }) =>
+			$variant === 'primary'
+				? `0.70px solid ${theme.colors.buttonPrimary + '90'}`
+				: `0.70px solid ${theme.colors.buttonPrimary}`};
+		transition: background-color 0.3s;
+		min-height: 30px;
 	}
 `
 
@@ -199,7 +217,7 @@ export const LoadingMessage = styled.div`
 	padding: 40px;
 	text-align: center;
 	font-size: 16px;
-	color: #999;
+	color: ${({ theme }) => theme.colors.secondary};
 	font-style: italic;
 `
 

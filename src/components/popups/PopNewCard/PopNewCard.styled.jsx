@@ -13,20 +13,20 @@ const scaleIn = keyframes`
 
 const categoryStyles = {
 	orange: css`
-		background-color: #ffe4c2;
-		color: #ff6d00;
+		background-color: ${({ theme }) => theme.colors.orangeBg};
+		color: ${({ theme }) => theme.colors.orangeText};
 	`,
 	green: css`
-		background-color: #b4fdd1;
-		color: #06b16e;
+		background-color: ${({ theme }) => theme.colors.greenBg};
+		color: ${({ theme }) => theme.colors.greenText};
 	`,
 	purple: css`
-		background-color: #e9d4ff;
-		color: #9a48f1;
+		background-color: ${({ theme }) => theme.colors.purpleBg};
+		color: ${({ theme }) => theme.colors.purpleText};
 	`,
 	default: css`
-		background-color: #94a6be;
-		color: #ffffff;
+		background-color: ${({ theme }) => theme.colors.secondary};
+		color: ${({ theme }) => theme.colors.buttonText};
 	`,
 }
 
@@ -51,17 +51,25 @@ export const PopNewCardContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	background: rgba(0, 0, 0, 0.4);
+
+	@media (max-width: 768px) {
+		padding: 0;
+	}
 `
 
 export const PopNewCardBlock = styled.div`
-	background-color: #ffffff;
-	max-width: 600px;
+	background-color: ${({ theme }) => theme.colors.cardBg};
+	max-width: 630px;
 	width: 100%;
 	padding: 24px;
 	border-radius: 10px;
-	border: 0.7px solid #cccccc;
+	border: 0.7px solid ${({ theme }) => theme.colors.borderCard};
 	position: relative;
 	animation: ${scaleIn} 0.3s ease-out;
+
+	@media (max-width: 768px) {
+		padding: 16px;
+	}
 `
 
 export const PopNewCardContent = styled.div`
@@ -70,7 +78,7 @@ export const PopNewCardContent = styled.div`
 `
 
 export const PopNewCardTtl = styled.div`
-	color: #000;
+	color: ${({ theme }) => theme.colors.text};
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 20px;
@@ -80,11 +88,11 @@ export const PopNewCardClose = styled.div`
 	position: absolute;
 	top: 20px;
 	right: 20px;
-	color: #94a6be;
+	color: ${({ theme }) => theme.colors.secondary};
 	cursor: pointer;
 	font-size: 20px;
 	&:hover {
-		color: #000;
+		color: ${({ theme }) => theme.colors.text};
 	}
 `
 
@@ -92,6 +100,11 @@ export const PopNewCardWrap = styled.div`
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
+	gap: 20px;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
 `
 
 export const PopNewCardForm = styled.form`
@@ -115,14 +128,16 @@ export const FormNewInput = styled.input`
 	width: 100%;
 	outline: none;
 	padding: 14px;
-	border: 0.7px solid rgba(148, 166, 190, 0.4);
 	border-radius: 8px;
 	font-size: 14px;
-	margin-bottom: 20px;
-	color: #3e3e3e;
+	margin-bottom: ${({ $error }) => ($error ? '#0px' : '20px')};
+	background-color: ${({ theme }) => theme.colors.cardBg};
+	color: ${({ theme }) => theme.colors.text};
+	border: 1px solid
+		${({ $error }) => ($error ? '#e74c3c' : 'rgba(148, 166, 190, 0.4)')};
 
 	&::placeholder {
-		color: #94a6be;
+		color: ${({ theme }) => theme.colors.secondary};
 	}
 `
 
@@ -134,20 +149,41 @@ export const FormNewArea = styled.textarea`
 	border-radius: 8px;
 	resize: vertical;
 	min-height: 200px;
-	margin-bottom: 20px;
+	margin-bottom: ${({ $error }) => ($error ? '#0px' : '20px')};
+	background-color: ${({ theme }) => theme.colors.cardBg};
+	color: ${({ theme }) => theme.colors.text};
+	border: 1px solid
+		${({ $error }) => ($error ? '#e74c3c' : 'rgba(148, 166, 190, 0.4)')};
+	&::placeholder {
+		color: ${({ theme }) => theme.colors.secondary};
+	}
+`
+
+export const PopNewCardSubmit = styled.div`
+	display: flex;
+	justify-content: end;
+
+	@media (max-width: 768px) {
+		justify-content: start;
+	}
 `
 
 export const FormNewCreate = styled.button`
 	width: 132px;
 	height: 30px;
-	background-color: #565eef;
+	background-color: ${({ theme }) => theme.colors.primary};
 	border-radius: 4px;
 	border: none;
 	font-size: 14px;
 	font-weight: 500;
-	color: #ffffff;
+	color: ${({ theme }) => theme.colors.buttonText};
 	cursor: pointer;
+	transition: all 0.3s;
 	${Hover01}
+
+	@media (max-width: 768px) {
+		justify-content: start;
+	}
 `
 
 export const Categories = styled.div`
@@ -173,7 +209,7 @@ export const CategoryTheme = styled.div`
 	border-radius: 24px;
 	cursor: pointer;
 	margin-right: 7px;
-	opacity: ${props => (props.isActive ? 1 : 0.4)};
+	opacity: ${props => (props.$isActive ? 1 : 0.4)};
 	${props => categoryStyles[props.color] || categoryStyles.default}
 `
 
@@ -181,4 +217,11 @@ export const CategoryText = styled.p`
 	font-size: 14px;
 	font-weight: 600;
 	white-space: nowrap;
+`
+
+export const ErrorText = styled.p`
+	text-align: end;
+	color: #e74c3c;
+	font-size: 13px;
+	margin-top: 4px;
 `

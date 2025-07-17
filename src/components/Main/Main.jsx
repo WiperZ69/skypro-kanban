@@ -25,9 +25,10 @@ export default function Main() {
 	]
 
 	const cardsByStatus = cards?.reduce((acc, card) => {
-		if (!card || !card.status) return acc
-		if (!acc[card.status]) acc[card.status] = []
-		acc[card.status].push(card)
+		if (!card) return acc
+		const status = card.status || 'Без статуса'
+		if (!acc[status]) acc[status] = []
+		acc[status].push(card)
 		return acc
 	}, {})
 

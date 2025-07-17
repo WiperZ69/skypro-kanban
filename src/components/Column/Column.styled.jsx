@@ -15,7 +15,7 @@ export const ScolumnTitle = styled.div`
 	padding: 0 10px;
 	margin: 15px 0;
 	p {
-		color: #94a6be;
+		color: ${({ theme }) => theme.colors.secondary};
 		font-size: 14px;
 		font-weight: 600;
 		line-height: 1;

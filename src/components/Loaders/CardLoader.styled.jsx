@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const ScardLoader = styled.div`
-	background: #fff;
+	background: ${({ theme }) => theme.colors.cardBg};
 	border-radius: 10px;
-	padding: 20px 16px;
+	padding: 15px 17px 19px 13px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	width: 220px;
 `

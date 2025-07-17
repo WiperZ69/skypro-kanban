@@ -1,30 +1,40 @@
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
+import { useTheme } from 'styled-components'
+import { AuthContext } from '../../context/AuthContext'
 import { Scontainer } from '../Main/Main.styled'
 import PopUser from '../popups/PopUser/PopUser'
-import { Hblock, Hbtn, Hnav, Huser, Sheader } from './Header.styled'
+import {
+	Hblock,
+	Hbtn,
+	HbtnMobile,
+	Hlogo,
+	Hnav,
+	Huser,
+	Sheader,
+} from './Header.styled'
 
-export default function Header({ togglePopUser }) {
+export default function Header() {
 	const userBtnRef = useRef(null)
 	const [isPopUserOpen, setIsPopUserOpen] = useState(false)
+	const { user } = useContext(AuthContext)
+	const theme = useTheme()
+	const isDark = theme.mode === 'dark'
+	const logoSrc = isDark ? 'images/logo_dark.png' : 'images/logo.png'
 
 	return (
 		<Sheader>
 			<Scontainer>
 				<Hblock>
-					<div className='header__logo _show _light'>
+					<Hlogo>
 						<a href='' target='_self'>
-							<img src='images/logo.png' alt='logo' />
+							<img src={logoSrc} alt='logo' />
 						</a>
-					</div>
-					<div className='header__logo _dark'>
-						<a href='' target='_self'>
-							<img src='images/logo_dark.png' alt='logo' />
-						</a>
-					</div>
+					</Hlogo>
 					<Hnav>
 						<Hbtn id='btnMainNew' to='/card/add'>
 							Создать новую задачу
 						</Hbtn>
+						<HbtnMobile to='/card/add'>Создать новую задачу</HbtnMobile>
 						<Huser
 							ref={userBtnRef}
 							onClick={e => {
@@ -32,12 +42,11 @@ export default function Header({ togglePopUser }) {
 								setIsPopUserOpen(!isPopUserOpen)
 							}}
 						>
-							Ivan Ivanov
-							<div id='pop-user-portal' />
+							{user?.user?.name || 'Гость'}
 						</Huser>
 						{isPopUserOpen && (
 							<PopUser
-								togglePopUser={togglePopUser}
+								user={user}
 								togglePopExit={() => setIsPopUserOpen(false)}
 							/>
 						)}
