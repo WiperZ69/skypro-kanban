@@ -51,6 +51,10 @@ export const PopNewCardContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	background: rgba(0, 0, 0, 0.4);
+
+	@media (max-width: 768px) {
+		padding: 0;
+	}
 `
 
 export const PopNewCardBlock = styled.div`
@@ -62,6 +66,10 @@ export const PopNewCardBlock = styled.div`
 	border: 0.7px solid ${({ theme }) => theme.colors.borderCard};
 	position: relative;
 	animation: ${scaleIn} 0.3s ease-out;
+
+	@media (max-width: 768px) {
+		padding: 16px;
+	}
 `
 
 export const PopNewCardContent = styled.div`
@@ -93,6 +101,10 @@ export const PopNewCardWrap = styled.div`
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: 20px;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
 `
 
 export const PopNewCardForm = styled.form`
@@ -116,12 +128,13 @@ export const FormNewInput = styled.input`
 	width: 100%;
 	outline: none;
 	padding: 14px;
-	border: 0.7px solid rgba(148, 166, 190, 0.4);
 	border-radius: 8px;
 	font-size: 14px;
-	margin-bottom: 20px;
+	margin-bottom: ${({ $error }) => ($error ? '#0px' : '20px')};
 	background-color: ${({ theme }) => theme.colors.cardBg};
 	color: ${({ theme }) => theme.colors.text};
+	border: 1px solid
+		${({ $error }) => ($error ? '#e74c3c' : 'rgba(148, 166, 190, 0.4)')};
 
 	&::placeholder {
 		color: ${({ theme }) => theme.colors.secondary};
@@ -136,9 +149,11 @@ export const FormNewArea = styled.textarea`
 	border-radius: 8px;
 	resize: vertical;
 	min-height: 200px;
-	margin-bottom: 20px;
+	margin-bottom: ${({ $error }) => ($error ? '#0px' : '20px')};
 	background-color: ${({ theme }) => theme.colors.cardBg};
 	color: ${({ theme }) => theme.colors.text};
+	border: 1px solid
+		${({ $error }) => ($error ? '#e74c3c' : 'rgba(148, 166, 190, 0.4)')};
 	&::placeholder {
 		color: ${({ theme }) => theme.colors.secondary};
 	}
@@ -147,6 +162,10 @@ export const FormNewArea = styled.textarea`
 export const PopNewCardSubmit = styled.div`
 	display: flex;
 	justify-content: end;
+
+	@media (max-width: 768px) {
+		justify-content: start;
+	}
 `
 
 export const FormNewCreate = styled.button`
@@ -161,6 +180,10 @@ export const FormNewCreate = styled.button`
 	cursor: pointer;
 	transition: all 0.3s;
 	${Hover01}
+
+	@media (max-width: 768px) {
+		justify-content: start;
+	}
 `
 
 export const Categories = styled.div`
@@ -194,4 +217,11 @@ export const CategoryText = styled.p`
 	font-size: 14px;
 	font-weight: 600;
 	white-space: nowrap;
+`
+
+export const ErrorText = styled.p`
+	text-align: end;
+	color: #e74c3c;
+	font-size: 13px;
+	margin-top: 4px;
 `

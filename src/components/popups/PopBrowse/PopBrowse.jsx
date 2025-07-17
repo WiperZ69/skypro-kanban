@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { CardContext } from '../../../context/CardContext'
 import { topicMapping } from '../../../data'
-import { deleteCard, editCard, fetchCards } from '../../../services/api'
 import { Calendar } from '../../Calendar/Calendar'
 import ButtonWithLoader from '../../Loaders/ButtonWithLoader'
 import * as S from './PopBrowse.styled'
@@ -15,7 +14,7 @@ const STATUSES = [
 ]
 
 export default function PopBrowse({ loading, error, card, onClose }) {
-	const { setCards } = useContext(CardContext)
+	const { editTask, deleteTask } = useContext(CardContext)
 	const [isEditing, setIsEditing] = useState(false)
 	const [editedCard, setEditedCard] = useState(null)
 	const [isSaving, setIsSaving] = useState(false)
@@ -40,9 +39,7 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 	const handleSave = async () => {
 		setIsSaving(true)
 		try {
-			await editCard(card._id, editedCard)
-			const updatedCards = await fetchCards()
-			setCards(updatedCards)
+			await editTask(card._id, editedCard)
 			setIsEditing(false)
 		} catch (error) {
 			console.error('Ошибка при сохранении:', error.message)
@@ -54,9 +51,7 @@ export default function PopBrowse({ loading, error, card, onClose }) {
 	const handleDelete = async () => {
 		setIsDeleting(true)
 		try {
-			await deleteCard(card._id)
-			const updatedCards = await fetchCards()
-			setCards(updatedCards)
+			await deleteTask(card._id)
 			onClose()
 		} catch (error) {
 			console.error('Ошибка при удалении:', error.message)

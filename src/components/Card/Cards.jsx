@@ -4,7 +4,7 @@ import { CardContext } from '../../context/CardContext'
 import { topicMapping } from '../../data'
 import CardLoader from '../Loaders/cardLoader'
 import Card from './Card'
-import { EmptyMessage, Scards, ScardsItem } from './Cards.styled'
+import { Scards, ScardsItem } from './Cards.styled'
 
 export default function Cards({ cards }) {
 	const { loading } = useContext(CardContext)
@@ -44,7 +44,6 @@ export default function Cards({ cards }) {
 						}}
 					/>
 				)}
-				<EmptyMessage>Задач пока нет</EmptyMessage>
 			</Scards>
 		)
 	}

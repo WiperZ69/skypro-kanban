@@ -22,62 +22,57 @@ const AuthForm = ({ isSignUp }) => {
 	const { updateUserInfo } = useContext(AuthContext)
 
 	const [loading, setLoading] = useState(false)
+	const [isSubmitted, setIsSubmitted] = useState(false)
 
-	// состояние полей
 	const [formData, setFormData] = useState({
 		name: '',
 		login: '',
 		password: '',
 	})
 
-	// состояние ошибок
 	const [errors, setErrors] = useState({
-		name: '',
-		login: '',
-		password: '',
+		name: false,
+		login: false,
+		password: false,
 	})
 
-	// состояние текста ошибки, чтобы показать её пользователю
 	const [error, setError] = useState('')
 
-	// функция валидации
-	const validateForm = () => {
-		const newErrors = { name: '', login: '', password: '' }
+	const validateForm = (data = formData) => {
+		const newErrors = { name: false, login: false, password: false }
 		let isValid = true
 
-		if (isSignUp && !formData.name.trim()) {
+		if (isSignUp && !data.name.trim()) {
 			newErrors.name = true
 			isValid = false
 		}
-		if (!formData.login.trim()) {
+		if (!data.login.trim()) {
 			newErrors.login = true
 			isValid = false
 		}
-		if (!formData.password.trim()) {
+		if (!data.password.trim()) {
 			newErrors.password = true
 			isValid = false
 		}
 
 		setErrors(newErrors)
 		if (!isValid) setError('Заполните все поля')
+		else setError('')
 		return isValid
 	}
 
-	// функция, которая отслеживает в полях изменения
-	// и меняет состояние компонента
 	const handleChange = e => {
 		const { name, value } = e.target
-		setFormData({
-			...formData,
-			[name]: value,
-		})
-		setErrors({ ...errors, [name]: false })
-		setError('')
+		const newFormData = { ...formData, [name]: value }
+		setFormData(newFormData)
+		if (isSubmitted) {
+			validateForm(newFormData)
+		}
 	}
 
-	// функция отправки формы
 	const handleSubmit = async e => {
 		e.preventDefault()
+		setIsSubmitted(true)
 		if (!validateForm()) return
 
 		setLoading(true)
@@ -97,19 +92,22 @@ const AuthForm = ({ isSignUp }) => {
 		}
 	}
 
+	const isFormValid =
+		(isSignUp ? formData.name.trim() : true) &&
+		formData.login.trim() &&
+		formData.password.trim()
+
 	return (
 		<AuthFormContainer>
 			<AuthFormModal>
 				<AuthFormWrapper>
 					<AuthFormTitle>{isSignUp ? 'Регистрация' : 'Вход'}</AuthFormTitle>
-					<AuthFormForm id='form' onSubmit={handleSubmit}>
+					<AuthFormForm onSubmit={handleSubmit}>
 						<FormInputWrapper>
 							{isSignUp && (
 								<FormInput
-									$tag='input'
-									$type='text'
+									type='text'
 									name='name'
-									id='formname'
 									placeholder='Имя'
 									value={formData.name}
 									onChange={handleChange}
@@ -117,32 +115,28 @@ const AuthForm = ({ isSignUp }) => {
 								/>
 							)}
 							<FormInput
-								$tag='input'
-								$type='text'
+								type='text'
 								name='login'
-								id='formlogin'
 								placeholder='Эл. почта'
 								value={formData.login}
 								onChange={handleChange}
 								$error={errors.login}
 							/>
 							<FormInput
-								$tag='input'
-								$type='password'
+								type='password'
 								name='password'
-								id='formpassword'
 								placeholder='Пароль'
 								value={formData.password}
 								onChange={handleChange}
 								$error={errors.password}
 							/>
 						</FormInputWrapper>
-						<p style={{ color: 'red' }}>{error}</p>
+						<p style={{ color: 'red', minHeight: '18px' }}>{error}</p>
 						<ButtonWithLoader
 							as={FormButton}
 							type='submit'
-							form='form'
 							loading={loading}
+							disabled={!isFormValid || loading}
 						>
 							{isSignUp ? 'Зарегистрироваться' : 'Войти'}
 						</ButtonWithLoader>

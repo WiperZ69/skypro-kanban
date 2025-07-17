@@ -16,6 +16,9 @@ export default function PopNewCard({
 	selectedDate,
 	onDateSelect,
 	loading,
+	formData,
+	onInputChange,
+	errors,
 }) {
 	return (
 		<S.PopNewCard>
@@ -25,7 +28,7 @@ export default function PopNewCard({
 					<S.PopNewCardContent>
 						<S.PopNewCardTtl>Создание задачи</S.PopNewCardTtl>
 						<S.PopNewCardWrap>
-							<S.PopNewCardForm id='NewTaskForm' onSubmit={onSubmit}>
+							<S.PopNewCardForm id='NewTaskForm' onSubmit={onSubmit} noValidate>
 								<input type='hidden' name='category' value={activeCategory} />
 								<S.FormNewBlock>
 									<S.FormNewLabel htmlFor='formTitle'>
@@ -37,9 +40,13 @@ export default function PopNewCard({
 										id='formTitle'
 										placeholder='Введите название задачи...'
 										autoFocus
-										required
+										value={formData.name}
+										onChange={onInputChange}
+										$error={errors.name}
 									/>
+									{errors.name && <S.ErrorText>{errors.name}</S.ErrorText>}
 								</S.FormNewBlock>
+
 								<S.FormNewBlock>
 									<S.FormNewLabel htmlFor='textArea'>
 										Описание задачи
@@ -48,9 +55,13 @@ export default function PopNewCard({
 										name='text'
 										id='textArea'
 										placeholder='Введите описание задачи...'
-										required
+										value={formData.text}
+										onChange={onInputChange}
+										$error={errors.text}
 									/>
+									{errors.text && <S.ErrorText>{errors.text}</S.ErrorText>}
 								</S.FormNewBlock>
+
 								<S.Categories>
 									<S.CategoriesP>Категория</S.CategoriesP>
 									<S.CategoriesThemes>
@@ -65,14 +76,19 @@ export default function PopNewCard({
 											</S.CategoryTheme>
 										))}
 									</S.CategoriesThemes>
+									{errors.category && (
+										<S.ErrorText>{errors.category}</S.ErrorText>
+									)}
 								</S.Categories>
 							</S.PopNewCardForm>
+
 							<Calendar
 								selectedDate={selectedDate}
 								onDateSelect={onDateSelect}
 								isEditing={true}
 							/>
 						</S.PopNewCardWrap>
+
 						<S.PopNewCardSubmit>
 							<ButtonWithLoader
 								type='submit'

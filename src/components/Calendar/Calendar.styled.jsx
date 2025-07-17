@@ -1,14 +1,15 @@
-// Calendar.styled.js
 import styled, { css } from 'styled-components'
 
 export const SCalendar = styled.div`
 	font-family: 'Roboto', Arial, Helvetica, sans-serif;
-	color: #333;
+	@media (max-width: 768px) {
+		width: 100%;
+	}
 `
 
 export const SCalendarTtl = styled.h2`
 	font-size: 14px;
-	color: #fff;
+	color: ${({ theme }) => theme.colors.text};
 	margin-bottom: 7px;
 `
 
@@ -25,7 +26,7 @@ export const SCalendarMonth = styled.div`
 	font-size: 14px;
 	font-weight: semibold;
 	text-transform: capitalize;
-	color: #94a6be;
+	color: ${({ theme }) => theme.colors.secondary};
 `
 
 export const SNavActions = styled.div`
@@ -43,12 +44,12 @@ export const SNavAction = styled.button`
 	justify-content: center;
 
 	svg {
-		fill: #333;
+		fill: ${({ theme }) => theme.colors.secondary};
 		transition: fill 0.2s ease;
 	}
 
 	&:hover svg {
-		fill: #0077ff;
+		fill: ${({ theme }) => theme.colors.primary};
 	}
 `
 
@@ -59,19 +60,27 @@ export const SCalendarDaysNames = styled.div`
 	grid-template-columns: repeat(7, 1fr);
 	margin-bottom: 0.5rem;
 	gap: 15px;
+
+	@media (max-width: 768px) {
+		gap: 30px;
+	}
 `
 
 export const StyledCalendarDayName = styled.div`
 	text-align: center;
 	font-weight: bold;
 	font-size: 10px;
-	color: #94a6be;
+	color: ${({ theme }) => theme.colors.secondary};
 `
 
 export const SCalendarCells = styled.div`
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	gap: 10px;
+
+	@media (max-width: 768px) {
+		gap: 30px;
+	}
 `
 
 export const StyledCalendarCell = styled.div`
@@ -80,7 +89,7 @@ export const StyledCalendarCell = styled.div`
 	padding: 5px;
 	border-radius: 50%;
 	cursor: pointer;
-	color: #94a6be;
+	color: ${({ theme }) => theme.colors.secondary};
 	transition: background 0.2s ease;
 
 	${props =>
@@ -99,11 +108,13 @@ export const StyledCalendarCell = styled.div`
   ${props =>
 		props.$isActive &&
 		css`
-			background: #eaeef6;
+			background: ${({ theme }) => theme.colors.secondary};
+			color: ${({ theme }) => theme.colors.tertiary};
 		`}
 
   &:hover {
-		background: #eaeef6;
+		background: ${({ theme }) => theme.colors.secondary};
+		color: ${({ theme }) => theme.colors.tertiary};
 	}
 `
 

@@ -7,16 +7,13 @@ import NotFoundPage from '../../pages/NotFoundPage'
 import PrivateRoute from '../../pages/PrivateRoute'
 import SignInPage from '../../pages/SignInPage'
 import SignUpPage from '../../pages/SignUpPage'
-import { fetchCards } from '../../services/api'
+
 function AppRoutes() {
 	return (
 		<Routes>
 			<Route element={<PrivateRoute />}>
 				<Route path='/' element={<MainPage />}>
-					<Route
-						path='/card/add'
-						element={<NewCardPage fetchCards={fetchCards} />}
-					/>
+					<Route path='/card/add' element={<NewCardPage />} />
 					<Route path='/card/:id' element={<BrowseCardPage />} />
 					<Route path='/logout' element={<LogOutPage />} />
 				</Route>

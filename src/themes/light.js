@@ -22,6 +22,18 @@ const lightTheme = {
 		buttonSecondary: 'transparent',
 		borderCard: '#D4DBE5',
 	},
+	toast: {
+		bg: {
+			success: '#ffffff',
+			error: '#ffffff',
+			warning: '#ffffff',
+		},
+		color: {
+			success: '#1b5e20',
+			error: '#b71c1c',
+			warning: '#8c6d00',
+		},
+	},
 }
 
 export default lightTheme

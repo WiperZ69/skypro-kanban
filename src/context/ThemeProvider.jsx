@@ -6,10 +6,19 @@ import { ThemeContext } from './ThemeContext'
 export const ThemeProviderCustom = ({ children }) => {
 	const [themeName, setThemeName] = useState('light')
 
-	// сохраняем тему в localStorage
 	useEffect(() => {
 		const storedTheme = localStorage.getItem('app-theme')
-		if (storedTheme) setThemeName(storedTheme)
+
+		if (storedTheme) {
+			setThemeName(storedTheme)
+		} else {
+			const prefersDark = window.matchMedia(
+				'(prefers-color-scheme: dark)'
+			).matches
+			const systemTheme = prefersDark ? 'dark' : 'light'
+			setThemeName(systemTheme)
+			localStorage.setItem('app-theme', systemTheme)
+		}
 	}, [])
 
 	const toggleTheme = () => {

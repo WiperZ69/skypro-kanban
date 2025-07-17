@@ -70,7 +70,6 @@ export const Cdate = styled.div`
 	}
 `
 
-// Стили для тем
 const themeStyles = {
 	default: css`
 		background-color: ${({ theme }) => theme.colors.secondary};

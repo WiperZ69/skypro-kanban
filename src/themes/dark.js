@@ -22,6 +22,18 @@ const darkTheme = {
 		buttonSecondary: 'transparent',
 		borderCard: '#4E5566',
 	},
+	toast: {
+		bg: {
+			success: '#4E5566',
+			error: '#4E5566',
+			warning: '#4E5566',
+		},
+		color: {
+			success: '#90ee90',
+			error: '#ff9999',
+			warning: '#ffe066',
+		},
+	},
 }
 
 export default darkTheme

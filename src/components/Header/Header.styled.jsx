@@ -64,6 +64,34 @@ export const Hbtn = styled(Link)`
 	margin-right: 20px;
 	transition: all 0.3s;
 	${Hover01}
+
+	@media (max-width: 768px) {
+		display: none;
+	}
+`
+
+export const HbtnMobile = styled(Link)`
+	display: none;
+
+	@media (max-width: 768px) {
+		display: block;
+		position: fixed;
+		bottom: 30px;
+		left: 0;
+		width: 90%;
+		margin: 0 16px;
+		padding: 16px;
+		background: ${({ theme }) => theme.colors.primary};
+		color: ${({ theme }) => theme.colors.buttonText};
+		text-align: center;
+		text-decoration: none;
+		font-size: 16px;
+		font-weight: 600;
+		z-index: 100;
+		box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+		border-radius: 4px;
+		max-width: 420px;
+	}
 `
 
 export const Hlogo = styled.div`
@@ -78,5 +106,9 @@ export const Hlogo = styled.div`
 		height: 36px;
 		width: auto;
 		object-fit: contain;
+		@media (max-width: 480px) {
+			height: 30px;
+			max-width: 85px;
+		}
 	}
 `

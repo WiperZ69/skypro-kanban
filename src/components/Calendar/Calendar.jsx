@@ -1,4 +1,3 @@
-// Calendar.jsx
 import {
 	addMonths,
 	eachDayOfInterval,

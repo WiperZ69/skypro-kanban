@@ -3,7 +3,15 @@ import { useTheme } from 'styled-components'
 import { AuthContext } from '../../context/AuthContext'
 import { Scontainer } from '../Main/Main.styled'
 import PopUser from '../popups/PopUser/PopUser'
-import { Hblock, Hbtn, Hlogo, Hnav, Huser, Sheader } from './Header.styled'
+import {
+	Hblock,
+	Hbtn,
+	HbtnMobile,
+	Hlogo,
+	Hnav,
+	Huser,
+	Sheader,
+} from './Header.styled'
 
 export default function Header() {
 	const userBtnRef = useRef(null)
@@ -26,6 +34,7 @@ export default function Header() {
 						<Hbtn id='btnMainNew' to='/card/add'>
 							Создать новую задачу
 						</Hbtn>
+						<HbtnMobile to='/card/add'>Создать новую задачу</HbtnMobile>
 						<Huser
 							ref={userBtnRef}
 							onClick={e => {
